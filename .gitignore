@@ -1,0 +1,7 @@
+## Spring/Java/IDEA excludes
+server/.idea
+server/*.iml
+server/mvnw*
+
+## Angular excludes
+browser-client/node_modules/
