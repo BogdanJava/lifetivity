@@ -1,7 +1,8 @@
 ## Spring/Java/IDEA excludes
-server/.idea
+server/.idea/
 server/*.iml
 server/mvnw*
+server/target/
 
 ## Angular excludes
 browser-client/node_modules/
