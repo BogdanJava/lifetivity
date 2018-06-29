@@ -1,3 +1,9 @@
 #submit-btn {
   float: right;
 }
+
+.loader {
+  float: right;
+  margin-right: 7px;
+  margin-top: 4px;
+}
