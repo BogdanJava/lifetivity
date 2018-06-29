@@ -3,6 +3,7 @@ server/.idea/
 server/*.iml
 server/mvnw*
 server/target/
+server/src/test/target
 
 ## Angular excludes
 browser-client/node_modules/
