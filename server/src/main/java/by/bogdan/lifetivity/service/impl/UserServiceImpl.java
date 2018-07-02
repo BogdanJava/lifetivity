@@ -8,13 +8,15 @@ import by.bogdan.lifetivity.repository.UserRepository;
 import by.bogdan.lifetivity.service.TokenService;
 import by.bogdan.lifetivity.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -52,13 +54,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String loginUser(AuthCredentials authCredentials) {
-        Authentication authentication = authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authCredentials.getEmail(), authCredentials.getPassword())
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        User user = userRepository.findByEmail(authCredentials.getEmail());
-        user.setLastLoggedInDateTime(LocalDateTime.now());
-        return tokenService.generateToken(authentication);
+    public String loginUser(AuthCredentials authCredentials) throws BadCredentialsException {
+        try {
+            Authentication authentication = authManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authCredentials.getEmail(), authCredentials.getPassword())
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            User user = userRepository.findByEmail(authCredentials.getEmail());
+            user.setLastLoggedInDateTime(LocalDateTime.now());
+            return tokenService.generateToken(authentication);
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Incorrect email or password");
+        }
     }
 }
