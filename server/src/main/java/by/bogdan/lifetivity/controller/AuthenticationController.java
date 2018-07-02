@@ -9,10 +9,7 @@ import by.bogdan.lifetivity.service.TokenService;
 import by.bogdan.lifetivity.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -54,4 +51,5 @@ public class AuthenticationController {
     public boolean isTokenValid(@RequestBody Map<String, String> body) {
         return tokenService.validateToken(body.get("token"));
     }
+
 }

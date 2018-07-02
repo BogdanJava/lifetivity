@@ -7,11 +7,9 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root"
 })
 export class AuthenticationService {
-  private authUrl: string;
+  private authUrl: string = BASE_URL + "/auth";
 
-  constructor(private http: HttpClient) {
-    this.authUrl = BASE_URL + "/auth";
-  }
+  constructor(private http: HttpClient) { }
 
   public login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.authUrl}/login`, {

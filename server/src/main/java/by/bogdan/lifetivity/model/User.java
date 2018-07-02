@@ -18,7 +18,7 @@ public class User {
     @Column(name = "last_name") private String lastName;
     private String email;
     @JsonIgnore private String password;
-    @Column(name = "birthday_date") private LocalDate birthdayDate;
+    @Column(name = "birthday_date")  private LocalDate birthdayDate;
     @Column(name = "registration_date") private LocalDate registrationDate;
     @Column(name = "last_logged_in") private LocalDateTime lastLoggedInDateTime;
     @Embedded private ContactInfo contactInfo;

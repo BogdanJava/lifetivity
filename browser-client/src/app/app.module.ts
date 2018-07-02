@@ -1,4 +1,4 @@
-import { RoutingModule, routeComponents } from './module/routing/routing.module';
+import { RoutingModule, components } from './module/routing/routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -6,14 +6,12 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './component/spinner/spinner.component';
-import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    routeComponents,
+    components,
     SpinnerComponent,
-    HomeComponent
   ],
   imports: [
     BrowserModule,
