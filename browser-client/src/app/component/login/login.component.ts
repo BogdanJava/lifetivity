@@ -1,5 +1,6 @@
 import { AuthenticationService } from "./../../service/auth/authentication.service";
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -11,7 +12,7 @@ export class LoginComponent {
   public password: string;
   public loading: boolean = false;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService, private router: Router) {}
 
   public submitForm() {
     this.loading = true;
@@ -20,6 +21,7 @@ export class LoginComponent {
         localStorage.setItem('token', result.token)
         console.log(result);
         this.loading = false;
+        this.router.navigate(['/home'])
       },
       _ => {
         console.log("Incorrect email or password");

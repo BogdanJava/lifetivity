@@ -2,6 +2,7 @@ import { BASE_URL } from "../globals";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -9,7 +10,7 @@ import { HttpClient } from "@angular/common/http";
 export class AuthenticationService {
   private authUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.authUrl = BASE_URL + "/auth";
   }
 
@@ -31,5 +32,14 @@ export class AuthenticationService {
     return this.http.post<boolean>(`${this.authUrl}/check_token_valid`, {
       token: token
     });
+  }
+
+  public isLoggedIn(): boolean {
+    return localStorage.getItem('token') != null;
+  }
+
+  public logout(): void {
+    localStorage.removeItem('token')
+    this.router.navigate(['/login'])
   }
 }

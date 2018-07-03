@@ -6,14 +6,12 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './component/spinner/spinner.component';
-import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routeComponents,
-    SpinnerComponent,
-    HomeComponent
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

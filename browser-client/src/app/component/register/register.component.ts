@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthenticationService } from "../../service/auth/authentication.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-register",
@@ -11,7 +12,7 @@ export class RegisterComponent {
   public password: string;
   public loading: boolean = false;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService, private router: Router) {}
 
   public submitForm() {
     this.loading = true;
@@ -19,6 +20,7 @@ export class RegisterComponent {
       result => {
         console.log(result);
         this.loading = false;
+        this.router.navigate(['/login'])
       },
       _ => {
         console.log("Incorrect email or password");
