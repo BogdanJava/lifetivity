@@ -10,13 +10,8 @@ import { SpinnerComponent } from './component/spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
-<<<<<<< HEAD
-    routeComponents,
-    SpinnerComponent
-=======
     components,
     SpinnerComponent,
->>>>>>> c8cf0d36732aa70761ca829c79c7bcac2a8272e2
   ],
   imports: [
     BrowserModule,

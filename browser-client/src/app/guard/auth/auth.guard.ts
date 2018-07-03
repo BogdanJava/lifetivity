@@ -14,8 +14,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   ) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-<<<<<<< HEAD
-=======
     return this.authService
       .isTokenValid(localStorage.getItem("token"))
       .pipe<boolean>(
@@ -31,7 +29,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   canActivateChild(): Observable<boolean> | Promise<boolean> | boolean {
->>>>>>> c8cf0d36732aa70761ca829c79c7bcac2a8272e2
     return this.authService
       .isTokenValid(localStorage.getItem("token"))
       .pipe<boolean>(
