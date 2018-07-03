@@ -8,11 +8,15 @@ import { Router } from "@angular/router";
   providedIn: "root"
 })
 export class AuthenticationService {
-  private authUrl: string;
+  private authUrl: string = BASE_URL + "/auth";
 
+<<<<<<< HEAD
   constructor(private http: HttpClient, private router: Router) {
     this.authUrl = BASE_URL + "/auth";
   }
+=======
+  constructor(private http: HttpClient) { }
+>>>>>>> c8cf0d36732aa70761ca829c79c7bcac2a8272e2
 
   public login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.authUrl}/login`, {

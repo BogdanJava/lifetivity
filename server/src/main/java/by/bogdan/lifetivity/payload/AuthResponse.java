@@ -2,8 +2,10 @@ package by.bogdan.lifetivity.payload;
 
 import by.bogdan.lifetivity.model.User;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class AuthResponse {
     private User user;
     private String message;

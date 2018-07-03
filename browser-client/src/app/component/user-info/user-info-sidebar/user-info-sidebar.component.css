@@ -1,0 +1,26 @@
+.nav-link {
+  color: #343a40;
+  border-radius: 0;
+}
+
+.nav-link:hover {
+  text-shadow: 0.5px 0.5px 1px #b7aaaa;
+  color: #2e3133 !important;
+}
+
+.nav {
+
+}
+
+.nav-item {
+
+}
+
+.activeTab {
+  border-left: 2px solid #343a40;
+  background-color: #343a4024;
+}
+
+.sidebar {
+  background-color: #343a400f;
+}
