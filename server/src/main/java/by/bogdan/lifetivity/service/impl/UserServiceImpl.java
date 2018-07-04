@@ -42,13 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerNew(AuthCredentials authCredentials) throws EmailAlreadyExistsException {
         if (!userRepository.existsByEmail(authCredentials.getEmail())) {
-            User user = new User();
-            user.setEmail(authCredentials.getEmail());
-            user.setPassword(passwordEncoder.encode(authCredentials.getPassword()));
-            user.setRole(Role.USER);
-            user.setAccountActive(true);
-            user.setRegistrationDate(LocalDate.now());
-            return userRepository.save(user);
+            return userRepository.save(getDefaultUser(authCredentials));
         } else throw new EmailAlreadyExistsException("Email " + authCredentials.getEmail() +
                 " already exists");
     }
@@ -66,5 +60,15 @@ public class UserServiceImpl implements UserService {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Incorrect email or password");
         }
+    }
+
+    private User getDefaultUser(AuthCredentials authCredentials) {
+        User user = new User();
+        user.setEmail(authCredentials.getEmail());
+        user.setPassword(passwordEncoder.encode(authCredentials.getPassword()));
+        user.setRole(Role.USER);
+        user.setAccountActive(true);
+        user.setRegistrationDate(LocalDate.now());
+        return user;
     }
 }

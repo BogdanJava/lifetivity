@@ -2,7 +2,6 @@ package by.bogdan.lifetivity.controller;
 
 import by.bogdan.lifetivity.repository.UserRepository;
 import by.bogdan.lifetivity.security.TokenUserDetails;
-import by.bogdan.lifetivity.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,3 +23,4 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findByEmail(currentUser.getUsername()));
     }
 }
+

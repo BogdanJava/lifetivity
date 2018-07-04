@@ -12,8 +12,8 @@ import { RegisterComponent } from "../../component/register/register.component";
 import { LoggedInGuard } from './../../guard/logged-in/logged-in.guard';
 
 const routes: Routes = [
-  { path: "login", component: LoginComponent },
-  { path: "signup", component: RegisterComponent },
+  { path: "login", component: LoginComponent, canActivate: [LoggedInGuard] },
+  { path: "signup", component: RegisterComponent, canActivate: [LoggedInGuard] },
   { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
   {
     path: "profile",

@@ -1,3 +1,7 @@
 #navbarNav {
   justify-content: space-between;
 }
+
+.dropdown {
+  margin-right: 20px;
+}

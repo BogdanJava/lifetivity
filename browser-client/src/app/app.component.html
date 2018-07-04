@@ -2,27 +2,38 @@
   <a href="#" class="navbar-brand">
     <img> Lifetivity
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse"
-  data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-  aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+    aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <a *ngIf="authService.isLoggedIn()" routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
     </ul>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav" *ngIf="!authService.isLoggedIn()">
       <li class="nav-item">
-        <a *ngIf="!authService.isLoggedIn()" routerLink="/login" routerLinkActive="active" class="nav-link">Login</a>
+        <a routerLink="/login" routerLinkActive="active" class="nav-link">Login</a>
       </li>
       <li class="nav-item">
-        <a *ngIf="!authService.isLoggedIn()" routerLink="/signup" routerLinkActive="active" class="nav-link">Register</a>
-      </li>
-      <li class="nav-item">
-        <a style="cursor: pointer;" (click)="authService.logout()" *ngIf="authService.isLoggedIn()" class="nav-link">Logout</a>
+        <a routerLink="/signup" routerLinkActive="active" class="nav-link">Register</a>
       </li>
     </ul>
-  </div> 
+    <div class="dropdown" *ngIf="authService.isLoggedIn() && currentUser != null">
+      <button class="btn dropdown-toggle" type="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div *ngIf="currentUser.firstName != null && currentUser.lastName != null" style="display: inline">
+          {{ currentUser.firstName }} {{currentUser.lastName}}
+        </div>
+        <div *ngIf="currentUser.firstName == null || currentUser.lastName == null" style="display: inline">
+          {{currentUser.email}}
+        </div>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="user-menu">
+        <a routerLink="/profile" routerLinkActive="active" class="dropdown-item">Profile</a>
+        <div class="dropdown-divider"></div>
+        <a style="cursor: pointer;" (click)="authService.logout()" class="dropdown-item">Logout</a>
+      </div>
+    </div>
+  </div>
 </nav>
 <div class="container">
   <router-outlet></router-outlet>
