@@ -3,7 +3,9 @@ package by.bogdan.lifetivity.service.impl;
 import by.bogdan.lifetivity.exception.EmailAlreadyExistsException;
 import by.bogdan.lifetivity.model.Role;
 import by.bogdan.lifetivity.model.User;
+import by.bogdan.lifetivity.model.UserPageData;
 import by.bogdan.lifetivity.model.dto.AuthCredentials;
+import by.bogdan.lifetivity.repository.UserPageDataRepository;
 import by.bogdan.lifetivity.repository.UserRepository;
 import by.bogdan.lifetivity.service.TokenService;
 import by.bogdan.lifetivity.service.UserService;
@@ -28,21 +30,26 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private TokenService tokenService;
+    private UserPageDataRepository userPageDataRepository;
 
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder,
                            TokenService tokenService,
-                           AuthenticationManager authManager) {
+                           AuthenticationManager authManager,
+                           UserPageDataRepository userPageDataRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.tokenService = tokenService;
         this.authManager = authManager;
+        this.userPageDataRepository = userPageDataRepository;
     }
 
     @Override
     public User registerNew(AuthCredentials authCredentials) throws EmailAlreadyExistsException {
         if (!userRepository.existsByEmail(authCredentials.getEmail())) {
-            return userRepository.save(getDefaultUser(authCredentials));
+            User user = userRepository.save(getDefaultUser(authCredentials));
+            userPageDataRepository.save(new UserPageData());
+            return user;
         } else throw new EmailAlreadyExistsException("Email " + authCredentials.getEmail() +
                 " already exists");
     }

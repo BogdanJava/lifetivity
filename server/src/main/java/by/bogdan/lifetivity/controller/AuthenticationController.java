@@ -25,6 +25,7 @@ public class AuthenticationController {
                                     TokenService tokenService) {
         this.userService = userService;
         this.tokenService = tokenService;
+
     }
 
     @PostMapping("/login")
@@ -41,6 +42,7 @@ public class AuthenticationController {
     public ResponseEntity signup(@Valid @RequestBody AuthCredentials authCredentials) {
         try {
             User newUser = userService.registerNew(authCredentials);
+
             return ResponseEntity.ok(new AuthResponse(newUser, "Registered successfully"));
         } catch (EmailAlreadyExistsException e) {
             return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));

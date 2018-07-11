@@ -1,3 +1,14 @@
-<p>
-  user-info-main works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <section class="user-photo">
+        <app-user-photo></app-user-photo>
+      </section>
+    </div>
+    <div class="col-lg-8">
+      <section class="user-info">
+        <app-user-common-details [user]="user"></app-user-common-details>
+      </section>
+    </div>
+  </div>
+</div>

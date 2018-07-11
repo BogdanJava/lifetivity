@@ -27,8 +27,8 @@
           {{currentUser.email}}
         </div>
       </button>
-      <div class="dropdown-menu" aria-labelledby="user-menu">
-        <a routerLink="/profile" routerLinkActive="active" class="dropdown-item">Profile</a>
+      <div class="dropdown-menu open-to-left" aria-labelledby="user-menu">
+        <a routerLink="/profile/main" routerLinkActive="active" class="dropdown-item">Profile</a>
         <div class="dropdown-divider"></div>
         <a style="cursor: pointer;" (click)="authService.logout()" class="dropdown-item">Logout</a>
       </div>

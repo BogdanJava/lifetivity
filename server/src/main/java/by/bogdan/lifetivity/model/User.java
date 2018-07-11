@@ -1,6 +1,7 @@
 package by.bogdan.lifetivity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,4 +25,7 @@ public class User {
     @Embedded private ContactInfo contactInfo;
     private Role role;
     @Column(name = "active") private boolean isAccountActive;
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private UserPageData userPageData;
 }

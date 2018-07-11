@@ -1,6 +1,7 @@
 import { UserService } from './../../../service/user/user.service';
 import { Component, OnInit } from "@angular/core";
 import { SidebarTab } from "../../sidebar-tab";
+import { User } from '../../../model/user.model';
 
 @Component({
   selector: "app-user-info-main",
@@ -9,11 +10,13 @@ import { SidebarTab } from "../../sidebar-tab";
 })
 export class UserInfoMainComponent implements OnInit, SidebarTab {
 
+  public user: User;
+
   constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(result => {
-      console.log(result)
+      this.user = result
     })
   }
 

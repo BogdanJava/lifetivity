@@ -1,26 +1,37 @@
-import { Component, OnInit } from "@angular/core";
 import { AuthenticationService } from "./service/auth/authentication.service";
-import { UserService } from "./service/user/user.service";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { User } from "./model/user.model";
+import { Subscription } from "rxjs";
+import { UserService } from "./service/user/user.service";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit {
-
-  public currentUser: User
+export class AppComponent implements OnInit, OnDestroy {
+  private currentUserSubscription: Subscription;
+  public currentUser: User;
 
   constructor(
-    public authService: AuthenticationService,
-    private userService: UserService
+    private userService: UserService,
+    public authService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
-    this.userService.getCurrentUser().subscribe(result => {
-      console.log(result)
-      this.currentUser = result
-    })
+    this.currentUserSubscription = this.userService
+      .getCurrentUserObservable()
+      .subscribe(user => {
+        this.currentUser = user;
+      });
+    if(this.currentUser == null) {
+      this.userService.getCurrentUser().subscribe(result => {
+        this.currentUser = result
+      })
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.currentUserSubscription.unsubscribe();
   }
 }

@@ -1,0 +1,31 @@
+.attribute {
+  font-size: 15px;
+  margin-top: 7px;
+}
+
+.attribute-name {
+  color: #828282;
+  cursor: default;
+}
+
+.user-name {
+  font-size: 29px;
+  font-weight: 500;
+  cursor: default;
+}
+
+.user-status {
+  cursor: pointer;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+.user-status:hover {
+  background: #f0f2f5;
+}
+
+.splitter {
+  border-bottom: 1px solid #cabfbf;
+  margin-bottom: 10px;
+  padding-bottom: 17px;
+}

@@ -1,7 +1,16 @@
+* {
+  font-family: Roboto, sans-serif
+}
+
 #navbarNav {
   justify-content: space-between;
 }
 
 .dropdown {
   margin-right: 20px;
+}
+
+.open-to-left {
+  right: 0;
+  left: auto
 }
