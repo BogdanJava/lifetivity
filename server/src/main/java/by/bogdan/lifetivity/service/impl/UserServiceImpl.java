@@ -7,6 +7,7 @@ import by.bogdan.lifetivity.model.UserPageData;
 import by.bogdan.lifetivity.model.dto.AuthCredentials;
 import by.bogdan.lifetivity.repository.UserPageDataRepository;
 import by.bogdan.lifetivity.repository.UserRepository;
+import by.bogdan.lifetivity.security.TokenUserDetails;
 import by.bogdan.lifetivity.service.TokenService;
 import by.bogdan.lifetivity.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -67,6 +68,13 @@ public class UserServiceImpl implements UserService {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Incorrect email or password");
         }
+    }
+
+    @Override
+    public UserPageData updateStatus(TokenUserDetails currentUser, String status) {
+        UserPageData data = userPageDataRepository.getByUserId(currentUser.getId());
+        data.setStatus(status);
+        return userPageDataRepository.save(data);
     }
 
     private User getDefaultUser(AuthCredentials authCredentials) {

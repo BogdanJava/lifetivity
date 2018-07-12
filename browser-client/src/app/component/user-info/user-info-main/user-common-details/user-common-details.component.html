@@ -10,30 +10,68 @@
           Please specify both firstName and lastName
         </div>
       </ng-template>
-      <div class="user-status">
+      <div class="user-status" (click)="opetStatusEditor()" *ngIf="pageData.status != null; else noStatus">
         {{pageData.status}}
       </div>
+      <ng-template #noStatus>
+        <div class="user-status no-status" (click)="opetStatusEditor()">
+          change status
+        </div>
+      </ng-template>
+      <app-status-editor [display]="displayStatusEditor" (statusChangeEventEmitter)="onStatusChange($event)" [status]="pageData.status"></app-status-editor>
       <div class="splitter"></div>
-      <div class="attribute" *ngIf="user.birthdayDate != null">
-        <div class="row">
-          <div class="attribute-name col-lg-6">
-            Birthday:
-          </div>
-          <div class="attribute-value col-lg-6">
-            {{user.birthdayDate | date }}
-          </div>
+      <div class="attribute row" *ngIf="user.birthdayDate != null">
+        <div class="attribute-name col-lg-6">
+          Birthday:
+        </div>
+        <div class="attribute-value col-lg-6">
+          {{user.birthdayDate | date }}
         </div>
       </div>
-      <div class="attribute" *ngIf="user.email != null">
-        <div class="row">
-          <div class="attribute-name col-lg-6">
-            Email:
-          </div>
-          <div class="attribute-value col-lg-6">
-            {{user.email}}
-          </div>
+      <div class="attribute row" *ngIf="user.email != null">
+        <div class="attribute-name col-lg-6">
+          Email:
+        </div>
+        <div class="attribute-value col-lg-6">
+          {{user.email}}
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <section class="section" *ngIf="user.contactInfo != null">
+        <div class="section-name">
+          <span>Contact info</span>
+          <hr>
+        </div>
+        <div class="section-content">
+          <div class="attribute row" *ngIf="user.contactInfo.country != null">
+            <div class="attribute-name col-lg-6">
+              Country
+            </div>
+            <div class="attribute-value col-lg-6">
+              {{user.contactInfo.country}}
+            </div>
+          </div>
+          <div class="attribute row" *ngIf="user.contactInfo.city != null">
+            <div class="attribute-name col-lg-6">
+              City
+            </div>
+            <div class="attribute-value col-lg-6">
+              {{user.contactInfo.city}}
+            </div>
+          </div>
+          <div class="attribute row" *ngIf="user.contactInfo.phoneNumber != null">
+            <div class="attribute-name col-lg-6">
+              Phone number
+            </div>
+            <div class="attribute-value col-lg-6">
+              {{user.contactInfo.phoneNumber}}
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </div>

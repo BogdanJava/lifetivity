@@ -1,3 +1,12 @@
-<p>
-  user-photo works!
-</p>
+<section class="user-avatar-section">
+  <div class="default-img" (mouseenter)="showUpload()" (mouseleave)="hideUpload()" (click)="selectFile()" *ngIf="!isPhotoPresent">
+    <img src="../../../../../assets/img/no_avatar.svg">
+    <input #fileInput type="file" accept="image/*" maxSize="1024*1024*5" hidden (change)="onSelectFile($event)">
+    <div #uploadText class="upload-text">
+      Upload photo
+    </div>
+  </div>
+  <div class="user-avatar" *ngIf="isPhotoPresent && imagePath != null">
+    <img [src]="imagePath">
+  </div>
+</section>

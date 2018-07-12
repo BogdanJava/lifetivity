@@ -1,0 +1,12 @@
+.status-editor {
+  position: absolute;
+  z-index: 1000;
+  left: -6px;
+  right: -6px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+  font-size: 15px;
+}
+
+.submit-editor-btn {
+  margin: 10px 0 -20px;
+}

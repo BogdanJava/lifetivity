@@ -1,3 +1,4 @@
+import { PageData } from './../../../model/user-page-data.model';
 import { UserService } from './../../../service/user/user.service';
 import { Component, OnInit } from "@angular/core";
 import { SidebarTab } from "../../sidebar-tab";
@@ -11,12 +12,16 @@ import { User } from '../../../model/user.model';
 export class UserInfoMainComponent implements OnInit, SidebarTab {
 
   public user: User;
+  public pageData: PageData;
 
   constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(result => {
       this.user = result
+    })
+    this.userService.getUserPageData().subscribe(result => {
+      this.pageData = result;
     })
   }
 

@@ -1,7 +1,9 @@
 package by.bogdan.lifetivity.service;
 
 import by.bogdan.lifetivity.model.User;
+import by.bogdan.lifetivity.model.UserPageData;
 import by.bogdan.lifetivity.model.dto.AuthCredentials;
+import by.bogdan.lifetivity.security.TokenUserDetails;
 
 /**
  * Used in {@link by.bogdan.lifetivity.controller.AuthenticationController}
@@ -20,4 +22,6 @@ public interface UserService {
      * @return access token
      */
     String loginUser(AuthCredentials authCredentials);
+
+    UserPageData updateStatus(TokenUserDetails currentUser, String status);
 }

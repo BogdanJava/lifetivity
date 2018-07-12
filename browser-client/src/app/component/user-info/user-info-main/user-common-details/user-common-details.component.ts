@@ -10,15 +10,21 @@ import { UserService } from '../../../../service/user/user.service';
 })
 export class UserCommonDetailsComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor() { }
 
   @Input() public user: User;
-  public pageData: PageData;
+  @Input() public pageData: PageData;
+  public displayStatusEditor: boolean = false;
 
   ngOnInit() {
-    this.userService.getUserPageData().subscribe(result => {
-      this.pageData = result;
-    })
+  }
+
+  opetStatusEditor() {
+    this.displayStatusEditor = !this.displayStatusEditor
+  }
+
+  onStatusChange(status) {
+    this.pageData.status = status
   }
 
 }
