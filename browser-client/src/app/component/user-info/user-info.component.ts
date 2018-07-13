@@ -1,23 +1,16 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { SidebarTab } from '../sidebar-tab';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-user-info',
-  templateUrl: './user-info.component.html',
-  styleUrls: ['./user-info.component.css']
+  selector: "app-user-info",
+  templateUrl: "./user-info.component.html",
+  styleUrls: ["./user-info.component.css"]
 })
-export class UserInfoComponent implements OnInit {
-
+export class UserInfoComponent {
   public tabName: string;
 
-  constructor(private router: Router) { }
+  constructor() {}
 
-  ngOnInit() {
-    this.router.navigate(['/profile/main'])
-  }
-
-  setTabName(currentTab: SidebarTab) {
+  setTabName(currentTab) {
     this.tabName = currentTab.getTabName();
   }
 

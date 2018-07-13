@@ -10,6 +10,7 @@ import by.bogdan.lifetivity.repository.UserRepository;
 import by.bogdan.lifetivity.security.TokenUserDetails;
 import by.bogdan.lifetivity.service.TokenService;
 import by.bogdan.lifetivity.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,31 +26,22 @@ import java.time.LocalDateTime;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private AuthenticationManager authManager;
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-    private TokenService tokenService;
-    private UserPageDataRepository userPageDataRepository;
-
-    public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder,
-                           TokenService tokenService,
-                           AuthenticationManager authManager,
-                           UserPageDataRepository userPageDataRepository) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.tokenService = tokenService;
-        this.authManager = authManager;
-        this.userPageDataRepository = userPageDataRepository;
-    }
+    private final AuthenticationManager authManager;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final TokenService tokenService;
+    private final UserPageDataRepository userPageDataRepository;
 
     @Override
     public User registerNew(AuthCredentials authCredentials) throws EmailAlreadyExistsException {
         if (!userRepository.existsByEmail(authCredentials.getEmail())) {
             User user = userRepository.save(getDefaultUser(authCredentials));
-            userPageDataRepository.save(new UserPageData());
+            UserPageData userPageData = new UserPageData();
+            userPageDataRepository.save(userPageData);
+            userPageData.setUser(user);
             return user;
         } else throw new EmailAlreadyExistsException("Email " + authCredentials.getEmail() +
                 " already exists");

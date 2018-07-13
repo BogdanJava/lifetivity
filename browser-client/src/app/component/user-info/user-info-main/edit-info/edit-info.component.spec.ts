@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserInfoInterestsComponent } from './user-info-interests.component';
+import { EditInfoComponent } from './edit-info.component';
 
-describe('UserInfoInterestsComponent', () => {
-  let component: UserInfoInterestsComponent;
-  let fixture: ComponentFixture<UserInfoInterestsComponent>;
+describe('EditInfoComponent', () => {
+  let component: EditInfoComponent;
+  let fixture: ComponentFixture<EditInfoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserInfoInterestsComponent ]
+      declarations: [ EditInfoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserInfoInterestsComponent);
+    fixture = TestBed.createComponent(EditInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

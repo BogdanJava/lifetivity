@@ -2,11 +2,13 @@ package by.bogdan.lifetivity.controller;
 
 import by.bogdan.lifetivity.exception.EmailAlreadyExistsException;
 import by.bogdan.lifetivity.model.User;
+import by.bogdan.lifetivity.model.UserPageData;
 import by.bogdan.lifetivity.model.dto.AuthCredentials;
 import by.bogdan.lifetivity.payload.AuthResponse;
 import by.bogdan.lifetivity.payload.ErrorResponse;
 import by.bogdan.lifetivity.service.TokenService;
 import by.bogdan.lifetivity.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,16 +21,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthenticationController {
 
-    private UserService userService;
-    private TokenService tokenService;
-
-    public AuthenticationController(UserService userService,
-                                    TokenService tokenService) {
-        this.userService = userService;
-        this.tokenService = tokenService;
-    }
+    private final UserService userService;
+    private final TokenService tokenService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthCredentials authCredentials) {
@@ -44,7 +41,6 @@ public class AuthenticationController {
     public ResponseEntity signup(@Valid @RequestBody AuthCredentials authCredentials) {
         try {
             User newUser = userService.registerNew(authCredentials);
-
             return ResponseEntity.ok(new AuthResponse(newUser, "Registered successfully"));
         } catch (EmailAlreadyExistsException e) {
             return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));

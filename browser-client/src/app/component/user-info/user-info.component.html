@@ -1,14 +1,7 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-lg-10">
-      <div class="card">
-        <div class="card-header">
-          {{tabName}}
-        </div>
-        <div class="card-body">
-          <router-outlet (activate)="setTabName($event)"></router-outlet>
-        </div>
-      </div>
+      <router-outlet></router-outlet>
     </div>
     <div class="col-lg-2">
       <app-user-info-sidebar></app-user-info-sidebar>

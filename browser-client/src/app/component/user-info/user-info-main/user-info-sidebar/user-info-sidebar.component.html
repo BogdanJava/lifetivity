@@ -1,0 +1,17 @@
+<ul class="nav flex-column sidebar">
+  <li class="nav-item">
+    <a routerLink="main" routerLinkActive="activeTab" class="nav-link">Main info</a>
+  </li>
+  <li class="nav-item">
+    <a routerLink="edit" routerLinkActive="activeTab" class="nav-link">Edit profile</a>
+    <ul class="nav sub-sidebar"
+    [class.hidden-bar]="getCurrentTabName() != 'edit'">
+      <li class="nav-item">
+        <a class="nav-link">Contact Info</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">Interests</a>
+      </li>
+    </ul>
+  </li>
+</ul>

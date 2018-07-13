@@ -1,16 +1,14 @@
-import { PageData } from './../../../../model/user-page-data.model';
-import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../../../model/user.model';
-import { UserService } from '../../../../service/user/user.service';
+import { PageData } from "./../../../../model/user-page-data.model";
+import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
+import { User } from "../../../../model/user.model";
 
 @Component({
-  selector: 'app-user-common-details',
-  templateUrl: './user-common-details.component.html',
-  styleUrls: ['./user-common-details.component.css']
+  selector: "app-user-common-details",
+  templateUrl: "./user-common-details.component.html",
+  styleUrls: ["./user-common-details.component.css"]
 })
 export class UserCommonDetailsComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   @Input() public user: User;
   @Input() public pageData: PageData;
@@ -19,12 +17,11 @@ export class UserCommonDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
-  opetStatusEditor() {
-    this.displayStatusEditor = !this.displayStatusEditor
+  toggleStatusEditor() {
+    this.displayStatusEditor = !this.displayStatusEditor;
   }
 
   onStatusChange(status) {
-    this.pageData.status = status
+    this.pageData.status = status;
   }
-
 }

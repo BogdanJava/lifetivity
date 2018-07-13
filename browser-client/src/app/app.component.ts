@@ -19,12 +19,13 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.currentUser)
     this.currentUserSubscription = this.userService
       .getCurrentUserObservable()
       .subscribe(user => {
         this.currentUser = user;
       });
-    if(this.currentUser == null) {
+    if(this.currentUser == undefined || this.userService == null) {
       this.userService.getCurrentUser().subscribe(result => {
         this.currentUser = result
       })

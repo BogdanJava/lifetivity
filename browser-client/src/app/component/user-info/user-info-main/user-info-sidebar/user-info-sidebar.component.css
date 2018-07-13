@@ -8,14 +8,6 @@
   color: #2e3133 !important;
 }
 
-.nav {
-
-}
-
-.nav-item {
-
-}
-
 .activeTab {
   border-left: 2px solid #343a40;
   background-color: #343a4024;
@@ -23,4 +15,17 @@
 
 .sidebar {
   background-color: #343a400f;
+}
+
+.hidden-bar {
+  overflow: hidden;
+  max-height: 0 !important;
+}
+
+.sub-sidebar {
+  background-color: #3b41478e;
+  max-height: 500px;
+  transition: max-height;
+  transition-duration: 450ms;
+  transition-delay: 0;
 }

@@ -10,11 +10,6 @@ import { User } from "../../model/user.model";
 })
 export class UserService {
   private userUrl: string = BASE_URL + "/user";
-  private options = {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
-  };
   private currentUser: Subject<User> = new Subject();
 
   constructor(private http: HttpClient) {}
@@ -28,11 +23,19 @@ export class UserService {
   }
 
   getUserPageData(): Observable<PageData> {
-    return this.http.get<PageData>(`${this.userUrl}/page_data`, this.options);
+    return this.http.get<PageData>(`${this.userUrl}/page_data`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
   }
 
   getCurrentUser(): Observable<User> {
-    return this.http.get(`${this.userUrl}/me`, this.options);
+    return this.http.get(`${this.userUrl}/me`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
   }
 
   updateStatus(status: string): Observable<any> {
@@ -40,20 +43,20 @@ export class UserService {
       params: {
         status: status
       },
-      headers: this.options.headers
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
     });
   }
 
   uploadPhoto(formData: FormData): Observable<PageData> {
-    let headers = new HttpHeaders().append(
-      "Authorization",
-      this.options.headers.Authorization
-    );
     return this.http.post<PageData>(
       `${this.userUrl}/upload_profile_photo`,
       formData,
       {
-        headers: headers
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
       }
     );
   }
@@ -61,16 +64,17 @@ export class UserService {
   getProfilePhoto(userId): Observable<any> {
     return this.http.get(`${this.userUrl}/profile_photo?id=${userId}`, {
       headers: {
-        Authorization: this.options.headers.Authorization,
-        Accept: 'application/json'
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Accept: "application/json"
       }
     });
   }
 
   isPhotoPresent(userId): Observable<any> {
-    return this.http.get(
-      `${this.userUrl}/is_photo_present?id=${userId}`,
-      this.options
-    );
+    return this.http.get(`${this.userUrl}/is_photo_present?id=${userId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
   }
 }

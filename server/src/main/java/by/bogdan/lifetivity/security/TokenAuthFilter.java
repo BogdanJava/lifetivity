@@ -2,6 +2,7 @@ package by.bogdan.lifetivity.security;
 
 import by.bogdan.lifetivity.repository.UserRepository;
 import by.bogdan.lifetivity.service.TokenService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,16 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class TokenAuthFilter extends OncePerRequestFilter {
 
-    private UserRepository userRepository;
-    private TokenService tokenService;
-
-    public TokenAuthFilter(UserRepository userRepository,
-                           TokenService tokenService) {
-        this.userRepository = userRepository;
-        this.tokenService = tokenService;
-    }
+    private final UserRepository userRepository;
+    private final TokenService tokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException, IOException {

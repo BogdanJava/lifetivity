@@ -12,20 +12,20 @@ export class StatusEditorComponent implements OnInit {
   @Input() public display: boolean;
   @Input() public status: string;
   public newStatus: string;
-  @Output() public statusChangeEventEmitter: EventEmitter<string> = new EventEmitter()
+  @Output()
+  public statusChangeEventEmitter: EventEmitter<string> = new EventEmitter();
 
   changeStatus() {
     this.userService.updateStatus(this.newStatus).subscribe(result => {
-      if(result.success) {
-        console.log(result.message)
-        this.display = false
-        this.statusChangeEventEmitter.emit(result.status)
+      if (result.success) {
+        console.log(result.message);
+        this.display = false;
+        this.statusChangeEventEmitter.emit(result.status);
       }
-    })
+    });
   }
 
   ngOnInit(): void {
-    this.newStatus = this.status
+    this.newStatus = this.status;
   }
-
 }

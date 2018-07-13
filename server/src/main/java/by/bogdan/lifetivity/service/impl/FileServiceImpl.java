@@ -5,6 +5,7 @@ import by.bogdan.lifetivity.model.UserPageData;
 import by.bogdan.lifetivity.repository.UserPageDataRepository;
 import by.bogdan.lifetivity.security.TokenUserDetails;
 import by.bogdan.lifetivity.service.FileService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,25 +17,20 @@ import java.io.File;
 import java.io.IOException;
 
 @Service
+@RequiredArgsConstructor
 public class FileServiceImpl implements FileService {
 
-    private UserPageDataRepository dataRepository;
-    private Environment env;
-
-    public FileServiceImpl(UserPageDataRepository dataRepository,
-                           Environment env) {
-        this.dataRepository = dataRepository;
-        this.env = env;
-    }
+    private final UserPageDataRepository dataRepository;
+    private final Environment env;
 
     @Transactional
     @Override
     public UserPageData saveProfilePhoto(MultipartFile file, TokenUserDetails userDetails,
                                          HttpServletRequest request) {
-        String baseUrl = request.getServletContext().getRealPath("/");
+        String baseUrl = "/uploads/";
         String filePath = String.format("%s%d/%s", baseUrl,
                 userDetails.getId(), file.getOriginalFilename());
-        File fileToSave = new File(filePath);
+        File fileToSave = changeFileName(new File(filePath));
         try {
             while (fileToSave.exists()) {
                 fileToSave = changeFileName(fileToSave);
@@ -45,7 +41,7 @@ public class FileServiceImpl implements FileService {
             file.transferTo(fileToSave);
             if (fileToSave.exists()) {
                 UserPageData data = dataRepository.getByUserId(userDetails.getId());
-                data.setProfilePhotoPath(filePath);
+                data.setProfilePhotoPath(fileToSave.getAbsolutePath());
                 return dataRepository.save(data);
             } else {
                 throw new FileException("Error while uploading file");
@@ -84,15 +80,14 @@ public class FileServiceImpl implements FileService {
         String absolutePath = file.getAbsolutePath();
         String directory = absolutePath.substring(0, absolutePath.lastIndexOf("/"));
         String oldFileName = absolutePath.substring(absolutePath.lastIndexOf("/") + 1, absolutePath.length());
-        String nameWithoutType = oldFileName.substring(0, oldFileName.lastIndexOf("."));
+        String nameWithoutType = "avatar";
         String type = oldFileName.substring(oldFileName.lastIndexOf(".") + 1, oldFileName.length());
         int tryCount = 0;
-        String newName = "";
-        if (!nameWithoutType.equals("")) {
-            do {
-                newName = nameWithoutType + String.format("(%d)", ++tryCount);
-            } while (new File(directory + nameWithoutType + type).exists());
-        }
-        return new File(directory + newName + type);
+        String newPath;
+        do {
+            newPath = directory + File.separator + nameWithoutType + String.format("(%d).%s", ++tryCount, type);
+        } while (new File(newPath).exists());
+
+        return new File(newPath);
     }
 }

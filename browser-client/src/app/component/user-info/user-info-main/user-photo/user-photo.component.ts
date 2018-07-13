@@ -22,16 +22,6 @@ export class UserPhotoComponent implements OnInit {
   public isPhotoPresent: boolean = false;
   public imagePath: any;
 
-  showUpload() {
-    this.uploadText.nativeElement.style.visibility = "visible";
-    this.uploadText.nativeElement.style.opacity = 1;
-  }
-
-  hideUpload() {
-    this.uploadText.nativeElement.style.visibility = "hidden";
-    this.uploadText.nativeElement.style.opacity = 0;
-  }
-
   selectFile() {
     this.fileInput.nativeElement.click();
   }
@@ -50,7 +40,6 @@ export class UserPhotoComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.isPhotoPresent(this.user.id).subscribe(result => {
-      console.log(result);
       if (result.status == 200) {
         this.isPhotoPresent = true;
         this.userService.getProfilePhoto(this.user.id).subscribe(result => {

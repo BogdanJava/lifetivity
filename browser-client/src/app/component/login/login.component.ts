@@ -1,6 +1,6 @@
 import { UserService } from "./../../service/user/user.service";
 import { AuthenticationService } from "./../../service/auth/authentication.service";
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { User } from "../../model/user.model";
 
@@ -9,10 +9,12 @@ import { User } from "../../model/user.model";
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   public email: string;
   public password: string;
   public loading: boolean = false;
+  @ViewChild('emailInput') public emailInput: ElementRef;
+  @ViewChild('passwordInput') public passwordInput: ElementRef;
 
   constructor(
     private authService: AuthenticationService,
@@ -25,7 +27,6 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe(
       result => {
         localStorage.setItem("token", result.token);
-        console.log(result);
         this.loading = false;
         this.router.navigate(["/home"]);
         this.userService.getCurrentUser().subscribe(result => {
@@ -37,5 +38,10 @@ export class LoginComponent {
         this.loading = false;
       }
     );
+  }
+
+  ngOnInit() {
+    this.email = this.emailInput.nativeElement.value
+    this.password = this.passwordInput.nativeElement
   }
 }
