@@ -19,7 +19,7 @@
             change status
           </div>
         </ng-template>
-        <app-status-editor [display]="displayStatusEditor" (click)="toggleStatusEditor()"
+        <app-status-editor [display]="displayStatusEditor"
         (statusChangeEventEmitter)="onStatusChange($event)" [status]="pageData.status"></app-status-editor>
         <div class="splitter"></div>
         <div class="attribute row" *ngIf="user.birthdayDate != null">

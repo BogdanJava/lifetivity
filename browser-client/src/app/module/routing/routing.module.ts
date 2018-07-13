@@ -24,7 +24,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: "main", component: UserInfoMainComponent },
-      { path: "edit", component: EditInfoComponent }
+      { path: "edit", redirectTo: "edit/common" },
+      { path: "edit/common", component: EditInfoComponent }
     ],
     canActivateChild: [AuthGuard]
   }

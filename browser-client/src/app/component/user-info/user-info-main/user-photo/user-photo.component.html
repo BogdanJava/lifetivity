@@ -1,6 +1,6 @@
 <section class="user-avatar-section card">
   <div class="card-body">
-    <div class="user-avatar" (mouseenter)="showUpload()" (mouseleave)="hideUpload()" (click)="selectFile()" *ngIf="!isPhotoPresent">
+    <div class="user-avatar" (click)="selectFile()" *ngIf="!isPhotoPresent">
       <img src="../../../../../assets/img/no_avatar.svg">
       <input #fileInput type="file" accept="image/*" maxSize="1024*1024*5" hidden (change)="onSelectFile($event)">
     </div>

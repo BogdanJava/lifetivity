@@ -1,0 +1,54 @@
+.edit-block {
+  margin-right: 15px;
+  margin-left: 25px;
+}
+
+.tab-header {
+  width: 100%;
+}
+
+.tab-header-text {
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.tab-content {
+  width: 100%;
+}
+
+.change-photo {
+  padding: 0 25px;
+}
+
+.user-avatar > img {
+  border-radius: 7px;
+}
+
+.change-info {
+  padding: 0;
+  padding-right: 35px;
+}
+
+.change-photo-section-header {
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.form-group > input {
+  background: #f4f4f4;
+}
+
+.form-group > input:focus {
+  background: #fff;
+}
+
+.form-group > label {
+  font-weight: 500;
+}
+
+.form-control-static {
+  cursor: default;
+}
+
+

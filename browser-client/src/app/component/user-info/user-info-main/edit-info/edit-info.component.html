@@ -1,3 +1,44 @@
-<p>
-  edit-info works!
-</p>
+<div class="container">
+  <div class="row edit-block">
+    <div class="tab-header">
+      <div class="tab-header-text">
+        Public profile
+      </div>
+      <hr>
+    </div>
+    <div class="tab-content">
+      <div class="container">
+        <div class="row">
+          <section class="col-lg-8 change-info">
+            <form *ngIf="user">
+              <div class="form-group">
+                <label for="firstName">First name</label>
+                <input class="form-control" type="text" name="firstName" [(ngModel)]="user.firstName" id="firstName">
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input class="form-control" type="text" name="lastName"
+                 [(ngModel)]="user.lastName" id="lastName">
+              </div>
+              <div class="form-group">
+                <label class=control-label for="email">Email</label>
+                <p class="form-control-static form-control" id="email">{{user.email}}</p>
+              </div>
+            </form>
+          </section>
+          <section class="col-lg-4 change-photo user-avatar-section">
+            <div class="change-photo-section-header">
+              Profile photo
+            </div>
+            <div class="user-avatar">
+              <img [src]="imagePath">
+            </div>
+            <button class="btn btn btn-outline-secondary edit-btn">
+              Change profile photo
+            </button>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

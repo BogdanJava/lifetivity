@@ -1,7 +1,6 @@
 import { PageData } from './../../../model/user-page-data.model';
 import { UserService } from './../../../service/user/user.service';
 import { Component, OnInit } from "@angular/core";
-import { SidebarTab } from "../../sidebar-tab";
 import { User } from '../../../model/user.model';
 
 @Component({
@@ -9,7 +8,7 @@ import { User } from '../../../model/user.model';
   templateUrl: "./user-info-main.component.html",
   styleUrls: ["./user-info-main.component.css"]
 })
-export class UserInfoMainComponent implements OnInit, SidebarTab {
+export class UserInfoMainComponent implements OnInit {
 
   public user: User;
   public pageData: PageData;
@@ -25,7 +24,4 @@ export class UserInfoMainComponent implements OnInit, SidebarTab {
     })
   }
 
-  getTabName(): string {
-    return "Main Info";
-  }
 }
