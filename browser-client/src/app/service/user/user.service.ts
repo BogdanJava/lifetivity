@@ -49,8 +49,8 @@ export class UserService {
     });
   }
 
-  uploadPhoto(formData: FormData): Observable<PageData> {
-    return this.http.post<PageData>(
+  uploadPhoto(formData: FormData): Observable<any> {
+    return this.http.post<any>(
       `${this.userUrl}/upload_profile_photo`,
       formData,
       {

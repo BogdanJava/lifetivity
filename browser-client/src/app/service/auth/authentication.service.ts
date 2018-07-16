@@ -1,6 +1,6 @@
 import { BASE_URL } from "../globals";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Injectable, Injector } from "@angular/core";
+import { Observable, Subject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 
@@ -9,8 +9,16 @@ import { Router } from "@angular/router";
 })
 export class AuthenticationService {
   private authUrl: string = BASE_URL + "/auth";
+  private _isLoggedIn = new Subject<boolean>();
+  private authService: AuthenticationService;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private injector: Injector
+  ) {
+    this.authService = this.injector.get(AuthenticationService);
+  }
 
   public login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.authUrl}/login`, {
@@ -32,12 +40,17 @@ export class AuthenticationService {
     });
   }
 
-  public isLoggedIn(): boolean {
-    return localStorage.getItem('token') != null;
+  public setLoggedIn(statement: boolean) {
+    this._isLoggedIn.next(statement);
+  }
+
+  public isLoggedIn(): Observable<boolean> {
+    return this._isLoggedIn.asObservable();
   }
 
   public logout(): void {
-    localStorage.removeItem('token')
-    this.router.navigate(['/login'])
+    localStorage.removeItem("token");
+    this.setLoggedIn(false);
+    this.router.navigate(["/login"]);
   }
 }

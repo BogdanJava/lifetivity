@@ -17,8 +17,7 @@
               </div>
               <div class="form-group">
                 <label for="lastName">Last name</label>
-                <input class="form-control" type="text" name="lastName"
-                 [(ngModel)]="user.lastName" id="lastName">
+                <input class="form-control" type="text" name="lastName" [(ngModel)]="user.lastName" id="lastName">
               </div>
               <div class="form-group">
                 <label class=control-label for="email">Email</label>
@@ -31,11 +30,21 @@
               Profile photo
             </div>
             <div class="user-avatar">
-              <img [src]="imagePath">
+              <img [src]="imagePath" [hidden]="photoChanged">
+              <img #preview alt="New photo" [hidden]="!photoChanged">
             </div>
-            <button class="btn btn btn-outline-secondary edit-btn">
+            <button class="btn btn btn-outline-secondary edit-btn" (click)="selectFile()" *ngIf="!photoChanged">
               Change profile photo
             </button>
+            <div class="image-save-buttons" *ngIf="photoChanged">
+              <button class="btn btn-outline-success photo-control-btn" (click)=saveNewPhoto()>
+                Save
+              </button>
+              <button class="btn btn-outline-danger photo-control-btn" (click)=cancelNewPhoto()>
+                Cancel
+              </button>
+            </div>
+            <input #fileInput type="file" accept="image/*" maxSize="1024*1024*5" hidden (change)="onSelectFile($event)">
           </section>
         </div>
       </div>

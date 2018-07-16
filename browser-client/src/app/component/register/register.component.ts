@@ -5,14 +5,17 @@ import { Router } from "@angular/router";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.css"]
+  styleUrls: ["./register.component.css", "../login/login.component.css"]
 })
 export class RegisterComponent {
   public email: string;
   public password: string;
   public loading: boolean = false;
 
-  constructor(private authService: AuthenticationService, private router: Router) {}
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
 
   public submitForm() {
     this.loading = true;
@@ -20,7 +23,7 @@ export class RegisterComponent {
       result => {
         console.log(result);
         this.loading = false;
-        this.router.navigate(['/login'])
+        this.router.navigate(["/login"]);
       },
       _ => {
         console.log("Incorrect email or password");

@@ -1,3 +1,4 @@
+<simple-notifications [options]="notificationOptions"></simple-notifications>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a href="#" class="navbar-brand">
     <img> Lifetivity
@@ -8,9 +9,9 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <a *ngIf="authService.isLoggedIn()" routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
+      <a *ngIf="isLoggedIn" routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
     </ul>
-    <ul class="navbar-nav" *ngIf="!authService.isLoggedIn()">
+    <ul class="navbar-nav" *ngIf="!isLoggedIn">
       <li class="nav-item">
         <a routerLink="/login" routerLinkActive="active" class="nav-link">Login</a>
       </li>
@@ -18,7 +19,7 @@
         <a routerLink="/signup" routerLinkActive="active" class="nav-link">Register</a>
       </li>
     </ul>
-    <div class="dropdown" *ngIf="authService.isLoggedIn() && currentUser != null">
+    <div class="dropdown" *ngIf="isLoggedIn && currentUser != null">
       <button class="btn dropdown-toggle" type="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <div *ngIf="currentUser.firstName != null && currentUser.lastName != null" style="display: inline">
           {{ currentUser.firstName }} {{currentUser.lastName}}

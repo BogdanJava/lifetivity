@@ -12,6 +12,14 @@ import { UserService } from "./service/user/user.service";
 export class AppComponent implements OnInit, OnDestroy {
   private currentUserSubscription: Subscription;
   public currentUser: User;
+  public isLoggedIn: boolean;
+  public notificationOptions = {
+    position: ["top", "right"],
+    timeOut: 3000,
+    showProgressBar: true,
+    pauseOnHover: true,
+    clickToClose: true
+  };
 
   constructor(
     private userService: UserService,
@@ -19,16 +27,24 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.currentUser)
+    this.authService
+      .isTokenValid(localStorage.getItem("token"))
+      .subscribe(result => {
+        this.authService.setLoggedIn(result);
+      });
+    this.authService.isLoggedIn().subscribe(result => {
+      console.log(result);
+      this.isLoggedIn = result;
+    });
     this.currentUserSubscription = this.userService
       .getCurrentUserObservable()
       .subscribe(user => {
         this.currentUser = user;
       });
-    if(this.currentUser == undefined || this.userService == null) {
+    if (this.currentUser == undefined || this.userService == null) {
       this.userService.getCurrentUser().subscribe(result => {
-        this.currentUser = result
-      })
+        this.currentUser = result;
+      });
     }
   }
 
