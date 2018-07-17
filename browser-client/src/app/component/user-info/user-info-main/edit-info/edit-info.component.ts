@@ -23,7 +23,7 @@ export class EditInfoComponent implements OnInit {
 
   @Input() public user: User;
   public imagePath: any;
-  public isPhotoPresent: boolean = false;
+  public isPhotoPresent: boolean = null;
   public pageData: PageData;
   public photoChanged = false;
   public userUpdated = false;

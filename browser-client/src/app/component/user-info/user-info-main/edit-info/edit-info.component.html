@@ -45,9 +45,9 @@
               Profile photo
             </div>
             <div class="user-avatar">
-              <img [src]="imagePath" [hidden]="photoChanged" *ngIf="isPhotoPresent">
-              <img #preview alt="New photo" [hidden]="!photoChanged" *ngIf="isPhotoPresent">
-              <img src="../../../../../assets/img/no_avatar.svg" *ngIf="!isPhotoPresent">
+              <img [src]="imagePath" [hidden]="photoChanged" *ngIf="isPhotoPresent == true">
+              <img #preview alt="New photo" [hidden]="!photoChanged" *ngIf="isPhotoPresent == true">
+              <img src="../../../../../assets/img/no_avatar.svg" *ngIf="isPhotoPresent == false">
             </div>
             <div class="image-control-buttons" *ngIf="!photoChanged">
               <button class="btn btn btn-outline-secondary edit-btn" (click)="selectFile()" *ngIf="!photoChanged">
