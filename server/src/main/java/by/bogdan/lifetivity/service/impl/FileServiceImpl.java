@@ -25,22 +25,22 @@ public class FileServiceImpl implements FileService {
 
     @Transactional
     @Override
-    public UserPageData saveProfilePhoto(MultipartFile file, TokenUserDetails userDetails,
+    public UserPageData saveProfilePhoto(MultipartFile file, long userId,
                                          HttpServletRequest request) {
         String baseUrl = "/uploads/";
         String filePath = String.format("%s%d/%s", baseUrl,
-                userDetails.getId(), file.getOriginalFilename());
+                userId, file.getOriginalFilename());
         File fileToSave = changeFileName(new File(filePath));
         try {
             while (fileToSave.exists()) {
                 fileToSave = changeFileName(fileToSave);
             }
-            File userDirectory = new File(baseUrl + userDetails.getId() + "/");
+            File userDirectory = new File(baseUrl + userId + "/");
             if (!userDirectory.exists()) userDirectory.mkdir();
             fileToSave.createNewFile();
             file.transferTo(fileToSave);
             if (fileToSave.exists()) {
-                UserPageData data = dataRepository.getByUserId(userDetails.getId());
+                UserPageData data = dataRepository.getByUserId(userId);
                 data.setProfilePhotoPath(fileToSave.getAbsolutePath());
                 return dataRepository.save(data);
             } else {
@@ -73,7 +73,7 @@ public class FileServiceImpl implements FileService {
         String contentType = env.getProperty(fileType);
         if (!contentType.equals("")) {
             return contentType;
-        } else throw new FileException("File has no type");
+        } else return env.getProperty("jpg");
     }
 
     private File changeFileName(File file) {

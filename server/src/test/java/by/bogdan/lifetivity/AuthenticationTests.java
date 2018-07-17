@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -30,23 +29,18 @@ public class AuthenticationTests {
 
     private final String email = "lol123@gmail.com";
     private final String password = "123456789";
-    @Value("${jwt.secret}") String secretKey;
+
     @LocalServerPort private Integer port;
     @Autowired private TestRestTemplate restTemplate;
     @Autowired private TokenService tokenService;
     @Autowired private UserService userService;
     private String baseUrl;
-    private boolean userCreated = false;
 
     @Before
     public void init() {
         this.baseUrl = "http://localhost:" + port + "/api/auth";
-
-        if (!userCreated) {
-            restTemplate.postForEntity(baseUrl + "/signup",
-                    new AuthCredentials(email, password), Map.class);
-            userCreated = true;
-        }
+        restTemplate.postForEntity(baseUrl + "/signup",
+                new AuthCredentials(email, password), Map.class);
     }
 
     @Test

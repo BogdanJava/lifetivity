@@ -1,5 +1,6 @@
 package by.bogdan.lifetivity.service;
 
+import by.bogdan.lifetivity.model.ContactInfo;
 import by.bogdan.lifetivity.model.User;
 import by.bogdan.lifetivity.model.UserPageData;
 import by.bogdan.lifetivity.model.dto.AuthCredentials;
@@ -23,5 +24,8 @@ public interface UserService {
      */
     String loginUser(AuthCredentials authCredentials);
 
-    UserPageData updateStatus(TokenUserDetails currentUser, String status);
+    UserPageData updateStatus(long userId, String status);
+    User updateUser(long userId, User user);
+
+    ContactInfo updateContactInfo(long userId, ContactInfo contactInfo);
 }

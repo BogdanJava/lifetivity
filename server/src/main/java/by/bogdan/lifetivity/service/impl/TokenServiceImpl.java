@@ -16,11 +16,8 @@ public class TokenServiceImpl implements TokenService {
 
     private static final Logger logger = LoggerFactory.getLogger(TokenServiceImpl.class);
 
-    @Value("${jwt.secret}")
-    private String secretKey;
-
-    @Value("${jwt.expirationTimeMillis}")
-    private long expirationTimeMillis;
+    @Value("${jwt.secret}") private String secretKey;
+    @Value("${jwt.expirationTimeMillis}") private long expirationTimeMillis;
 
     @Override
     public String generateToken(Authentication authentication) {

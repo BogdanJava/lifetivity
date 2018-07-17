@@ -10,7 +10,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 @Configuration
 @PropertySources({
-        @PropertySource("classpath:types.properties")
+        @PropertySource("classpath:types.properties"),
+        @PropertySource("classpath:jwt.properties")
 })
 public class WebMvcConfig implements WebMvcConfigurer {
 

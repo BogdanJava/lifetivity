@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "page_data")
@@ -14,8 +15,8 @@ import javax.persistence.*;
 @ToString(exclude = "user")
 public class UserPageData {
     @JsonIgnore @Id @GeneratedValue private long id;
-    private String status;
-    private String profilePhotoPath;
+    @Size(max = 255) private String status;
+    @JsonIgnore private String profilePhotoPath;
     @JsonIgnore @OneToOne(fetch = FetchType.LAZY)
     private User user;
 }

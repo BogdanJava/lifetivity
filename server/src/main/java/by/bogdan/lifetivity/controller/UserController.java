@@ -1,6 +1,9 @@
 package by.bogdan.lifetivity.controller;
 
 import by.bogdan.lifetivity.exception.FileException;
+import by.bogdan.lifetivity.exception.ForbiddenException;
+import by.bogdan.lifetivity.model.ContactInfo;
+import by.bogdan.lifetivity.model.User;
 import by.bogdan.lifetivity.model.UserPageData;
 import by.bogdan.lifetivity.repository.UserPageDataRepository;
 import by.bogdan.lifetivity.repository.UserRepository;
@@ -10,6 +13,7 @@ import by.bogdan.lifetivity.service.UserService;
 import com.google.common.collect.ImmutableMap;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -42,12 +46,24 @@ public class UserController {
         return ResponseEntity.ok(userPageDataRepository.getByUserId(currentUser.getId()));
     }
 
+    @GetMapping("/contact_info")
+    public ResponseEntity getUserContactInfo(@AuthenticationPrincipal TokenUserDetails currentUser) {
+        return ResponseEntity.ok(userRepository.getUserContactInfo(currentUser.getId()));
+    }
+
     @PutMapping("/update_status")
     public ResponseEntity updateStatus(@AuthenticationPrincipal TokenUserDetails currentUser,
                                        @RequestParam String status) {
-        UserPageData data = userService.updateStatus(currentUser, status);
+        UserPageData data = userService.updateStatus(currentUser.getId(), status);
         return ResponseEntity.ok(ImmutableMap.of("message", "status changed",
                 "success", true, "status", data.getStatus()));
+    }
+
+    @PutMapping("/update_contact_info")
+    public ResponseEntity updateContactInfo(@AuthenticationPrincipal TokenUserDetails currentUser,
+                                            @RequestBody ContactInfo contactInfo) {
+        ContactInfo updatedInfo = this.userService.updateContactInfo(currentUser.getId(), contactInfo);
+        return ResponseEntity.ok(updatedInfo);
     }
 
     @PostMapping(value = "/upload_profile_photo",
@@ -55,7 +71,7 @@ public class UserController {
     public ResponseEntity uploadProfilePhoto(@AuthenticationPrincipal TokenUserDetails currentUser,
                                              @RequestPart("file") @Valid @NotNull @NotBlank MultipartFile file,
                                              HttpServletRequest request) {
-        UserPageData userPageData = fileService.saveProfilePhoto(file, currentUser, request);
+        UserPageData userPageData = fileService.saveProfilePhoto(file, currentUser.getId(), request);
         return ResponseEntity.ok(ImmutableMap.of("success", true, "userPageData", userPageData));
     }
 
@@ -83,6 +99,19 @@ public class UserController {
         return path != null && !path.equals("") ?
                 ResponseEntity.ok().body(ImmutableMap.of("status", 200)) :
                 ResponseEntity.status(404).body(ImmutableMap.of("status", 404));
+    }
+
+    @PutMapping
+    public ResponseEntity updateUser(@AuthenticationPrincipal TokenUserDetails currentUser,
+                                     @RequestBody @Valid User user) {
+        try {
+            User updatedUser = this.userService.updateUser(currentUser.getId(), user);
+            return ResponseEntity.ok(updatedUser);
+        } catch (ForbiddenException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ImmutableMap.of(
+                    "message", e.getMessage()
+            ));
+        }
     }
 
 }

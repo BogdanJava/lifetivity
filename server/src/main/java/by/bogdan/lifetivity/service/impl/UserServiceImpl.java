@@ -1,13 +1,14 @@
 package by.bogdan.lifetivity.service.impl;
 
 import by.bogdan.lifetivity.exception.EmailAlreadyExistsException;
+import by.bogdan.lifetivity.exception.ForbiddenException;
+import by.bogdan.lifetivity.model.ContactInfo;
 import by.bogdan.lifetivity.model.Role;
 import by.bogdan.lifetivity.model.User;
 import by.bogdan.lifetivity.model.UserPageData;
 import by.bogdan.lifetivity.model.dto.AuthCredentials;
 import by.bogdan.lifetivity.repository.UserPageDataRepository;
 import by.bogdan.lifetivity.repository.UserRepository;
-import by.bogdan.lifetivity.security.TokenUserDetails;
 import by.bogdan.lifetivity.service.TokenService;
 import by.bogdan.lifetivity.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -63,8 +64,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserPageData updateStatus(TokenUserDetails currentUser, String status) {
-        UserPageData data = userPageDataRepository.getByUserId(currentUser.getId());
+    public User updateUser(long userId, User user) {
+        if (userId != user.getId()) throw new ForbiddenException("Forbidden method invocation");
+        user.setPassword(this.userRepository.getOne(userId).getPassword());
+        return this.userRepository.save(user);
+    }
+
+    @Override
+    public ContactInfo updateContactInfo(long userId, ContactInfo contactInfo) {
+        User user = userRepository.getOne(userId);
+        user.setContactInfo(contactInfo);
+        return userRepository.save(user).getContactInfo();
+    }
+
+    @Override
+    public UserPageData updateStatus(long userId, String status) {
+        UserPageData data = userPageDataRepository.getByUserId(userId);
         data.setStatus(status);
         return userPageDataRepository.save(data);
     }
