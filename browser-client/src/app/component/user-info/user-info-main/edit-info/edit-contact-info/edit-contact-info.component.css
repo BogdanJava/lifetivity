@@ -1,0 +1,30 @@
+form {
+  margin-top: 15px;
+}
+
+.form-group {
+  display: flex;
+  width: 80%;
+  margin: 0 auto 20px auto;
+}
+
+.form-control {
+  font-size: 13px;
+}
+
+.form-group-label {
+  width: 40%;
+  text-align: right;
+  margin: auto 60px auto 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.splitter {
+  margin: 20px 0;
+}
+
+#submitBtn {
+  margin: 30px auto 0;
+  display: block;
+}

@@ -4,6 +4,7 @@ import { UserService } from "./../../../../service/user/user.service";
 import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { User } from "../../../../model/user.model";
 import { NotificationsService } from "angular2-notifications";
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: "app-edit-info",
@@ -24,24 +25,30 @@ export class EditInfoComponent implements OnInit {
   public imagePath: any;
   public isPhotoPresent: boolean = false;
   public pageData: PageData;
+  public photoChanged = false;
+  public userUpdated = false;
+
+  private selectedFile: File = null;
   private formData: FormData;
+
   @ViewChild("fileInput") fileInput: ElementRef;
   @ViewChild("preview") previewImgTag: ElementRef;
-  public photoChanged = false;
-  private selectedFile: File = null;
 
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe(result => {
       this.user = result;
       this.userService.isPhotoPresent(this.user.id).subscribe(result => {
         if (result.status == 200) {
-          this.isPhotoPresent = true;
           this.userService.getProfilePhoto(this.user.id).subscribe(result => {
             this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(
               `data:${result.mimeType};base64, ${result.file}`
             );
+            this.isPhotoPresent = true;
           });
-        } else if (result.status == 404) {
+        }
+      }, error => {
+        if (error.status == 404) {
+          console.log(error)
           this.isPhotoPresent = false;
         }
       });
@@ -52,6 +59,7 @@ export class EditInfoComponent implements OnInit {
   }
 
   selectFile() {
+    this.isPhotoPresent = true
     this.fileInput.nativeElement.click();
   }
 
@@ -63,6 +71,24 @@ export class EditInfoComponent implements OnInit {
       this.formData = new FormData();
       this.formData.append("file", file, file.name);
       this.previewPhoto();
+    }
+  }
+
+  onSubmitProfile(form: NgForm) {
+    if (form.valid) {
+      this.userService.updateUser(this.user).subscribe(
+        result => {
+          this.userService.setUser(result);
+          this.user = result;
+          this.userUpdated = true;
+          setTimeout(() => {
+            this.userUpdated = false;
+          }, 5000);
+        },
+        error => {
+          this._notifications.alert("User not updated", error);
+        }
+      );
     }
   }
 
@@ -92,7 +118,7 @@ export class EditInfoComponent implements OnInit {
   previewPhoto() {
     let file = this.formData.get("file");
     if (file != null) {
-      let reader = new FileReader();
+      let reader: any = new FileReader();
       reader.onload = e => {
         this.previewImgTag.nativeElement.setAttribute("src", e.target.result);
         this.photoChanged = true;

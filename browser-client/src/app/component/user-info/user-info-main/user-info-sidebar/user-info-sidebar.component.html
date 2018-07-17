@@ -4,10 +4,9 @@
   </li>
   <li class="nav-item">
     <a routerLink="edit" routerLinkActive="activeTab" class="nav-link">Edit profile</a>
-    <ul class="nav sub-sidebar"
-    [class.hidden-bar]="getCurrentTabName() != 'common'">
+    <ul class="nav sub-sidebar" [class.hidden-bar]="!isSubTabShown(['common', 'contact', 'interests'])">
       <li class="nav-item">
-        <a class="nav-link">Contact Info</a>
+        <a class="nav-link" routerLink="edit/contact" routerLinkActive="activeTab">Contact Info</a>
       </li>
       <li class="nav-item">
         <a class="nav-link">Interests</a>

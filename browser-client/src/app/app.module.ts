@@ -23,7 +23,7 @@ import { StatusEditorComponent } from "./component/user-info/user-info-main/user
     UserPhotoComponent,
     UserCommonDetailsComponent,
     StatusEditorComponent,
-    FileSelectDirective
+    FileSelectDirective,
   ],
   imports: [
     BrowserModule,

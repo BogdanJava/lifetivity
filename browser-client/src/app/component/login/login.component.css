@@ -12,3 +12,8 @@
   max-width: 640px;
   margin: 64px auto 0;
 }
+
+.alert {
+  max-width: 640px;
+  margin: 15px auto;
+}

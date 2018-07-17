@@ -8,20 +8,19 @@
         <form class="form">
           <div class="form-group">
             <label for="email">Email</label>
-            <input [(ngModel)]="email" type="text" name="email" id="email"
-            required class="form-control rounded-0" #emailInput>
+            <input [(ngModel)]="email" type="text" name="email" id="email" required class="form-control rounded-0" #emailInput>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input [(ngModel)]="password" type="password" name="password" id="password"
-            required class="form-control rounded-0" #passwordInput>
+            <input [(ngModel)]="password" type="password" name="password" id="password" required class="form-control rounded-0" #passwordInput>
           </div>
-            <button [disabled]="loading" (click)="submitForm()" class="btn btn-outline-dark" type="button" id="submit-btn" >
-              Login
-            </button>
-            <app-spinner *ngIf="loading" class="loader"></app-spinner>
+          <button [disabled]="loading" (click)="submitForm()" class="btn btn-outline-dark" type="button" id="submit-btn">
+            Login
+          </button>
+          <app-spinner *ngIf="loading" class="loader"></app-spinner>
         </form>
       </div>
     </div>
+    <div class="alert alert-danger" *ngIf="showAlert">{{alertMessage}}</div>
   </div>
 </div>

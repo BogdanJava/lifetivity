@@ -10,33 +10,51 @@
       <div class="container">
         <div class="row">
           <section class="col-lg-8 change-info">
-            <form *ngIf="user">
+            <form #form="ngForm" *ngIf="user" (submit)="onSubmitProfile(form)">
               <div class="form-group">
                 <label for="firstName">First name</label>
-                <input class="form-control" type="text" name="firstName" [(ngModel)]="user.firstName" id="firstName">
+                <input class="form-control" type="text" name="firstName" #firstName="ngModel" [(ngModel)]="user.firstName" id="firstName"
+                  required pattern="[a-zA-Z]{3,15}" [class.is-invalid]="firstName.errors">
+                <div *ngIf="firstName.errors?.pattern" class="invalid-feedback">Incorrect pattern</div>
+                <div *ngIf="firstName.errors?.required" class="invalid-feedback">Field is required</div>
               </div>
               <div class="form-group">
                 <label for="lastName">Last name</label>
-                <input class="form-control" type="text" name="lastName" [(ngModel)]="user.lastName" id="lastName">
+                <input class="form-control" type="text" name="lastName" #lastName="ngModel" [(ngModel)]="user.lastName" id="lastName" [class.is-invalid]="lastName.errors"
+                  required pattern="[a-zA-Z]{3,15}">
+                <div *ngIf="lastName.errors?.pattern" class="invalid-feedback">Incorrect pattern</div>
+                <div *ngIf="lastName.errors?.required" class="invalid-feedback">Field is required</div>
               </div>
               <div class="form-group">
                 <label class=control-label for="email">Email</label>
                 <p class="form-control-static form-control" id="email">{{user.email}}</p>
               </div>
+              <div class="form-group">
+                <label class=control-label for="email">Registration date</label>
+                <p class="form-control-static form-control" id="registrationDate">{{user.registrationDate | date}}</p>
+              </div>
+              <button type="submit" class="btn btn-outline-success" [class.disabled]="form.invalid" [disabled]="form.invalid">Update profile</button>
+              <div class="alert alert-success" *ngIf="userUpdated">
+                User was updated
+              </div>
             </form>
+
           </section>
           <section class="col-lg-4 change-photo user-avatar-section">
             <div class="change-photo-section-header">
               Profile photo
             </div>
             <div class="user-avatar">
-              <img [src]="imagePath" [hidden]="photoChanged">
-              <img #preview alt="New photo" [hidden]="!photoChanged">
+              <img [src]="imagePath" [hidden]="photoChanged" *ngIf="isPhotoPresent">
+              <img #preview alt="New photo" [hidden]="!photoChanged" *ngIf="isPhotoPresent">
+              <img src="../../../../../assets/img/no_avatar.svg" *ngIf="!isPhotoPresent">
             </div>
-            <button class="btn btn btn-outline-secondary edit-btn" (click)="selectFile()" *ngIf="!photoChanged">
-              Change profile photo
-            </button>
-            <div class="image-save-buttons" *ngIf="photoChanged">
+            <div class="image-control-buttons" *ngIf="!photoChanged">
+              <button class="btn btn btn-outline-secondary edit-btn" (click)="selectFile()" *ngIf="!photoChanged">
+                Change profile photo
+              </button>
+            </div>
+            <div class="image-control-buttons" *ngIf="photoChanged">
               <button class="btn btn-outline-success photo-control-btn" (click)=saveNewPhoto()>
                 Save
               </button>

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row edit-block">
+    <div class="tab-header">
+      <div class="tab-header-text">
+        Contact Info
+      </div>
+      <hr>
+    </div>
+    <div class="tab-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <form *ngIf="contactInfo" #form="ngForm" (submit)="onFormSubmit(form)" >
+              <div class="form-group">
+                <div class="form-group-label">
+                  Country:
+                </div>
+                <input type="text" name="country" id="country" class="form-control" [(ngModel)]="contactInfo.country">
+              </div>
+              <div class="form-group">
+                <div class="form-group-label">
+                  City:
+                </div>
+                <input type="text" name="city" id="city" class="form-control" [(ngModel)]="contactInfo.city">
+              </div>
+              <hr class="splitter">
+              <div class="form-group">
+                <div class="form-group-label">
+                  Mobile phone:
+                </div>
+                <input type="text" name="mobilePhone" id="mobilePhone" class="form-control" [(ngModel)]="contactInfo.phoneNumber">
+              </div>
+              <div class="form-group">
+                <div class="form-group-label">
+                  Additional phone:
+                </div>
+                <input type="text" name="additionalPhone" id="additionalPhone" class="form-control" [(ngModel)]="contactInfo.additionalPhone">
+              </div>
+              <div class="form-group">
+                <div class="form-group-label">
+                  Skype:
+                </div>
+                <input type="text" name="skype" id="skype" class="form-control" [(ngModel)]="contactInfo.skypeAccount">
+              </div>
+              <div class="form-group">
+                <div class="form-group-label">
+                  Personal website:
+                </div>
+                <input type="text" name="website" id="website" class="form-control" [(ngModel)]="contactInfo.website">
+              </div>
+              <button type="submit" class="btn btn-outline-primary" id="submitBtn">
+                Save changes
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BASE_URL } from "../globals";
 import { User } from "../../model/user.model";
+import { ContactInfo } from "../../model/contact-info.model";
 
 @Injectable({
   providedIn: "root"
@@ -49,6 +50,22 @@ export class UserService {
     });
   }
 
+  updateUserContactInfo(contactInfo: ContactInfo): Observable<any> {
+    return this.http.put(`${this.userUrl}/update_contact_info`, contactInfo, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+  }
+
+  updateUser(user: User): Observable<any> {
+    return this.http.put<any>(`${this.userUrl}`, user, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+  }
+
   uploadPhoto(formData: FormData): Observable<any> {
     return this.http.post<any>(
       `${this.userUrl}/upload_profile_photo`,
@@ -66,6 +83,14 @@ export class UserService {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         Accept: "application/json"
+      }
+    });
+  }
+
+  getUserContactInfo(): Observable<any> {
+    return this.http.get<any>(`${this.userUrl}/contact_info`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     });
   }

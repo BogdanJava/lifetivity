@@ -3,6 +3,10 @@
   border-radius: 0;
 }
 
+.nav-item {
+  width: 100%;
+}
+
 .nav-link:hover {
   text-shadow: 0.5px 0.5px 1px #b7aaaa;
   color: #2e3133 !important;

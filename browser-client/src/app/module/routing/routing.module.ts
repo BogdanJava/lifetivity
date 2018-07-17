@@ -9,6 +9,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "../../component/login/login.component";
 import { RegisterComponent } from "../../component/register/register.component";
 import { LoggedInGuard } from "./../../guard/logged-in/logged-in.guard";
+import { EditContactInfoComponent } from "../../component/user-info/user-info-main/edit-info/edit-contact-info/edit-contact-info.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent, canActivate: [LoggedInGuard] },
@@ -25,7 +26,8 @@ const routes: Routes = [
     children: [
       { path: "main", component: UserInfoMainComponent },
       { path: "edit", redirectTo: "edit/common" },
-      { path: "edit/common", component: EditInfoComponent }
+      { path: "edit/common", component: EditInfoComponent },
+      { path: "edit/contact", component: EditContactInfoComponent }
     ],
     canActivateChild: [AuthGuard]
   }
@@ -44,5 +46,6 @@ export const components = [
   UserInfoComponent,
   UserInfoMainComponent,
   UserInfoSidebarComponent,
-  EditInfoComponent
+  EditInfoComponent,
+  EditContactInfoComponent
 ];

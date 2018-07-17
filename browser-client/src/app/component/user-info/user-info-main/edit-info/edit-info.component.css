@@ -52,7 +52,7 @@
   cursor: not-allowed;
 }
 
-.image-save-buttons {
+.image-control-buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
@@ -60,4 +60,12 @@
 
 .photo-control-btn {
   width: 110px;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.alert-success {
+  margin-top: 15px;
 }
