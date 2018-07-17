@@ -17,9 +17,11 @@ export class UserCommonDetailsComponent implements OnInit {
   public trustedSkypeUrl: SafeUrl;
 
   ngOnInit() {
-    let skype = this.user.contactInfo.skypeAccount;
-    if (skype) {
-      this.trustedSkypeUrl = this.makeTrusted(`skype:${skype}`);
+    if (this.user != null && this.user.contactInfo != null) {
+      let skype = this.user.contactInfo.skypeAccount;
+      if (skype) {
+        this.trustedSkypeUrl = this.makeTrusted(`skype:${skype}`);
+      }
     }
   }
 
