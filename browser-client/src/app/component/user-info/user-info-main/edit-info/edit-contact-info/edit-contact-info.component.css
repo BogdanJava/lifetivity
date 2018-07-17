@@ -28,3 +28,8 @@ form {
   margin: 30px auto 0;
   display: block;
 }
+
+.alert-success {
+  width: 70%;
+  margin: 20px auto 0;
+}

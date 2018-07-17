@@ -1,1 +1,0 @@
-Add spinned and loading state to components that have forms

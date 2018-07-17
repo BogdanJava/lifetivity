@@ -19,8 +19,7 @@
             change status
           </div>
         </ng-template>
-        <app-status-editor [display]="displayStatusEditor"
-        (statusChangeEventEmitter)="onStatusChange($event)" [status]="pageData.status"></app-status-editor>
+        <app-status-editor [display]="displayStatusEditor" (statusChangeEventEmitter)="onStatusChange($event)" [status]="pageData.status"></app-status-editor>
         <div class="splitter"></div>
         <div class="attribute row" *ngIf="user.birthdayDate != null">
           <div class="attribute-name col-lg-6">
@@ -48,7 +47,7 @@
             <hr>
           </div>
           <div class="section-content">
-            <div class="attribute row" *ngIf="user.contactInfo.country != null">
+            <div class="attribute row" *ngIf="user.contactInfo.country != null && user.contactInfo.country != ''">
               <div class="attribute-name col-lg-6">
                 Country
               </div>
@@ -56,7 +55,7 @@
                 {{user.contactInfo.country}}
               </div>
             </div>
-            <div class="attribute row" *ngIf="user.contactInfo.city != null">
+            <div class="attribute row" *ngIf="user.contactInfo.city != null && user.contactInfo.city != ''">
               <div class="attribute-name col-lg-6">
                 City
               </div>
@@ -64,12 +63,36 @@
                 {{user.contactInfo.city}}
               </div>
             </div>
-            <div class="attribute row" *ngIf="user.contactInfo.phoneNumber != null">
+            <div class="attribute row" *ngIf="user.contactInfo.phoneNumber != null && user.contactInfo.phoneNumber != ''">
               <div class="attribute-name col-lg-6">
                 Phone number
               </div>
               <div class="attribute-value col-lg-6">
                 {{user.contactInfo.phoneNumber}}
+              </div>
+            </div>
+            <div class="attribute row" *ngIf="user.contactInfo.additionalPhone != null && user.contactInfo.additionalPhone != ''">
+              <div class="attribute-name col-lg-6">
+                Additional phone
+              </div>
+              <div class="attribute-value col-lg-6">
+                {{user.contactInfo.additionalPhone}}
+              </div>
+            </div>
+            <div class="attribute row" *ngIf="user.contactInfo.skypeAccount != null && user.contactInfo.skypeAccount != ''">
+              <div class="attribute-name col-lg-6">
+                Skype
+              </div>
+              <div class="attribute-value col-lg-6">
+                <a [href]="makeTrusted('skype:' + user.contactInfo.skypeAccount + '?call')">{{user.contactInfo.skypeAccount}}</a>
+              </div>
+            </div>
+            <div class="attribute row" *ngIf="user.contactInfo.website != null && user.contactInfo.website != ''">
+              <div class="attribute-name col-lg-6">
+                Personal site
+              </div>
+              <div class="attribute-value col-lg-6">
+                <a [href]="makeTrusted(user.contactInfo.website)" target="_blank">{{user.contactInfo.website}}</a>
               </div>
             </div>
           </div>

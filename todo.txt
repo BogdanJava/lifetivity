@@ -1,0 +1,2 @@
+Add spinner and loading state to components which have forms
+Improve registration logic
