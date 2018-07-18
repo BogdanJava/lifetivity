@@ -5,6 +5,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { User } from "../../../../model/user.model";
 import { NotificationsService } from "angular2-notifications";
 import { NgForm } from "@angular/forms";
+import { IMyDpOptions, IMyDate } from "mydatepicker";
 
 @Component({
   selector: "app-edit-info",
@@ -28,6 +29,23 @@ export class EditInfoComponent implements OnInit {
   public photoChanged = false;
   public userUpdated = false;
 
+  private today = new Date();
+  public birthday: any;
+
+  public myDpOptions: IMyDpOptions = {
+    disableSince: {
+      day: this.today.getDate() + 1,
+      month: this.today.getMonth() + 1,
+      year: this.today.getFullYear()
+    },
+    disableUntil: {
+      day: 1,
+      month: 1,
+      year: 1917
+    },
+    dateFormat: "dd-mm-yyyy"
+  };
+
   private selectedFile: File = null;
   private formData: FormData;
 
@@ -37,21 +55,34 @@ export class EditInfoComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe(result => {
       this.user = result;
-      this.userService.isPhotoPresent(this.user.id).subscribe(result => {
-        if (result.status == 200) {
-          this.userService.getProfilePhoto(this.user.id).subscribe(result => {
-            this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(
-              `data:${result.mimeType};base64, ${result.file}`
-            );
-            this.isPhotoPresent = true;
-          });
+      let bday = this.user.birthdayDate;
+      if (bday) {
+        this.birthday = {
+          date: {
+            year: bday[0],
+            month: bday[1],
+            day: bday[2]
+          }
+        };
+      }
+      this.userService.isPhotoPresent(this.user.id).subscribe(
+        result => {
+          if (result.status == 200) {
+            this.userService.getProfilePhoto(this.user.id).subscribe(result => {
+              this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(
+                `data:${result.mimeType};base64, ${result.file}`
+              );
+              this.isPhotoPresent = true;
+            });
+          }
+        },
+        error => {
+          if (error.status == 404) {
+            console.log(error);
+            this.isPhotoPresent = false;
+          }
         }
-      }, error => {
-        if (error.status == 404) {
-          console.log(error)
-          this.isPhotoPresent = false;
-        }
-      });
+      );
     });
     this.userService.getUserPageData().subscribe(result => {
       this.pageData = result;
@@ -59,7 +90,7 @@ export class EditInfoComponent implements OnInit {
   }
 
   selectFile() {
-    this.isPhotoPresent = true
+    this.isPhotoPresent = true;
     this.fileInput.nativeElement.click();
   }
 
@@ -75,6 +106,12 @@ export class EditInfoComponent implements OnInit {
   }
 
   onSubmitProfile(form: NgForm) {
+    if (this.birthday) {
+      let bday = this.birthday.date;
+      this.user.birthdayDate = [bday.year, bday.month, bday.day];
+    } else {
+      this.user.birthdayDate = []
+    }
     if (form.valid) {
       this.userService.updateUser(this.user).subscribe(
         result => {

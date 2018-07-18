@@ -7,6 +7,7 @@ import { FileSelectDirective } from "ng2-file-upload";
 import { ngfModule } from "angular-file";
 import { SimpleNotificationsModule } from "angular2-notifications";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MyDatePickerModule } from "mydatepicker";
 
 import { AppComponent } from "./app.component";
 import { SpinnerComponent } from "./component/spinner/spinner.component";
@@ -14,6 +15,8 @@ import { GlobalErrorHandler } from "./interceptors/error-handler/error-handler.s
 import { UserPhotoComponent } from "./component/user-info/user-info-main/user-photo/user-photo.component";
 import { UserCommonDetailsComponent } from "./component/user-info/user-info-main/user-common-details/user-common-details.component";
 import { StatusEditorComponent } from "./component/user-info/user-info-main/user-common-details/status-editor/status-editor.component";
+import { RegisterCommonComponent } from './component/register/register-common/register-common.component';
+import { RegisterContactComponent } from './component/register/register-contact/register-contact.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,8 @@ import { StatusEditorComponent } from "./component/user-info/user-info-main/user
     UserCommonDetailsComponent,
     StatusEditorComponent,
     FileSelectDirective,
+    RegisterCommonComponent,
+    RegisterContactComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,8 @@ import { StatusEditorComponent } from "./component/user-info/user-info-main/user
     FormsModule,
     ngfModule,
     SimpleNotificationsModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MyDatePickerModule
   ],
   providers: [
     {

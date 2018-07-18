@@ -1,0 +1,29 @@
+.register-form-header {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  border-bottom: 1px solid #edeef0;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.btn-next {
+  float: right;
+}
+
+.button-group {
+  float: right;
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+}
+
+app-spinner {
+  margin-right: 10px;
+}
+
+.submit-block {
+  display: flex;
+  align-items: center;
+  float: right;
+}

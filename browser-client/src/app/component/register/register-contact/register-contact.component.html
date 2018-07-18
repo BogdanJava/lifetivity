@@ -1,0 +1,51 @@
+<form *ngIf="user" #form="ngForm" (submit)="onFormSubmit(form)">
+  <div class="register-form-header">
+    Contact Info
+  </div>
+  <div class="form-group">
+    <label for="country">Country</label>
+    <input type="country" class="form-control" name="country" id="country" [(ngModel)]="user.contactInfo.country" #country="ngModel"
+      pattern="[a-zA-Z]{0,255}" [class.is-invalid]="country.errors && country.touched" [class.is-valid]="!country.errors && country.touched">
+    <div *ngIf="country.errors?.pattern" class="invalid-feedback">Incorrect pattern</div>
+  </div>
+  <div class="form-group">
+    <label for="city">City</label>
+    <input type="text" class="form-control" name="city" id="city" [(ngModel)]="user.contactInfo.city" #city="ngModel"
+      pattern="[a-zA-Z]{0,255}" [class.is-invalid]="city.errors && city.touched" [class.is-valid]="!city.errors && city.touched">
+    <div *ngIf="city.errors?.pattern" class="invalid-feedback">Incorrect pattern</div>
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input type="text" class="form-control" name="phone" id="phone" [(ngModel)]="user.contactInfo.phoneNumber" pattern="[ +0-9()]{7,20}"
+      #phone="ngModel" [class.is-invalid]="phone.errors && phone.touched" [class.is-valid]="!phone.errors && phone.touched">
+    <div *ngIf="phone.errors?.pattern" class="invalid-feedback">Incorrect pattern</div>
+  </div>
+  <div class="register-form-header">
+    Password
+  </div>
+  <div class="form-group">
+    <label for="password">Password*</label>
+    <input type="password" class="form-control" name="password" id="password" required [(ngModel)]="user.password" #password="ngModel"
+      pattern="[a-zA-Z0-9-_!?]{8,20}" [class.is-invalid]="password.errors && password.touched" [class.is-valid]="!password.errors && password.touched">
+    <div *ngIf="password.errors?.pattern" class="invalid-feedback">Incorrect pattern</div>
+    <div *ngIf="password.errors?.required" class="invalid-feedback">Field is required</div>
+  </div>
+  <div class="form-group">
+    <label for="repeat">Repeat password*</label>
+    <input type="password" class="form-control" name="repeat" id="repeat" required [(ngModel)]="repeatPassword" #repeat="ngModel"
+      pattern="[a-zA-Z0-9-_!?]{8,20}" [class.is-invalid]="repeat.errors && repeat.touched" [class.is-valid]="!repeat.errors && repeat.touched">
+    <div *ngIf="repeat.errors?.pattern" class="invalid-feedback">Incorrect pattern</div>
+    <div *ngIf="repeat.errors?.required" class="invalid-feedback">Field is required</div>
+  </div>
+  <div *ngIf="passwordError" class="alert alert-danger">
+    Passwords don't match
+  </div>
+  <div class="button-group">
+    <button (click)="goBack()" class="btn btn-outline-danger">Back
+      <i class="fas fa-arrow-circle-left"></i>
+    </button>
+    <button type="submit" class="btn btn-outline-success">Submit
+      <i class="fas fa-check-circle"></i>
+    </button>
+  </div>
+</form>

@@ -37,14 +37,14 @@ public class UserServiceImpl implements UserService {
     private final UserPageDataRepository userPageDataRepository;
 
     @Override
-    public User registerNew(AuthCredentials authCredentials) throws EmailAlreadyExistsException {
-        if (!userRepository.existsByEmail(authCredentials.getEmail())) {
-            User user = userRepository.save(getDefaultUser(authCredentials));
+    public User registerNew(User user) throws EmailAlreadyExistsException {
+        if (!userRepository.existsByEmail(user.getEmail())) {
+            user = userRepository.save(setupDefault(user));
             UserPageData userPageData = new UserPageData();
-            userPageDataRepository.save(userPageData);
             userPageData.setUser(user);
+            userPageDataRepository.save(userPageData);
             return user;
-        } else throw new EmailAlreadyExistsException("Email " + authCredentials.getEmail() +
+        } else throw new EmailAlreadyExistsException("Email " + user.getEmail() +
                 " already exists");
     }
 
@@ -84,10 +84,8 @@ public class UserServiceImpl implements UserService {
         return userPageDataRepository.save(data);
     }
 
-    private User getDefaultUser(AuthCredentials authCredentials) {
-        User user = new User();
-        user.setEmail(authCredentials.getEmail());
-        user.setPassword(passwordEncoder.encode(authCredentials.getPassword()));
+    private User setupDefault(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
         user.setAccountActive(true);
         user.setRegistrationDate(LocalDate.now());

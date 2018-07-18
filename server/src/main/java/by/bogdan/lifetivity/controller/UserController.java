@@ -48,7 +48,8 @@ public class UserController {
 
     @GetMapping("/contact_info")
     public ResponseEntity getUserContactInfo(@AuthenticationPrincipal TokenUserDetails currentUser) {
-        return ResponseEntity.ok(userRepository.getUserContactInfo(currentUser.getId()));
+        final ContactInfo userContactInfo = userRepository.getUserContactInfo(currentUser.getId());
+        return ResponseEntity.ok(userContactInfo != null ? userContactInfo : new ContactInfo());
     }
 
     @PutMapping("/update_status")

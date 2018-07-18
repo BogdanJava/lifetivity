@@ -26,6 +26,12 @@
                 <div *ngIf="lastName.errors?.required" class="invalid-feedback">Field is required</div>
               </div>
               <div class="form-group">
+                <label for="birthday">Birthday</label>
+                <my-date-picker name="birthday" id="birthday" [(ngModel)]="birthday" [options]="myDpOptions">
+                </my-date-picker>
+                <small id="birthdayHelp" class="form-text text-muted">Format: dd-mm-yyyy</small>
+              </div>
+              <div class="form-group">
                 <label class=control-label for="email">Email</label>
                 <p class="form-control-static form-control" id="email">{{user.email}}</p>
               </div>

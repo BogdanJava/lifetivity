@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthenticationService } from "../../service/auth/authentication.service";
-import { Router } from "@angular/router";
+import { User } from "../../model/user.model";
+import { ContactInfo } from "../../model/contact-info.model";
 
 @Component({
   selector: "app-register",
@@ -8,27 +8,19 @@ import { Router } from "@angular/router";
   styleUrls: ["./register.component.css", "../login/login.component.css"]
 })
 export class RegisterComponent {
-  public email: string;
-  public password: string;
-  public loading: boolean = false;
+  public user: User;
+  public step = 1;
 
-  constructor(
-    private authService: AuthenticationService,
-    private router: Router
-  ) {}
+  constructor() {
+    this.user = new User();
+    this.user.contactInfo = new ContactInfo()
+  }
 
-  public submitForm() {
-    this.loading = true;
-    this.authService.signup(this.email, this.password).subscribe(
-      result => {
-        console.log(result);
-        this.loading = false;
-        this.router.navigate(["/login"]);
-      },
-      _ => {
-        console.log("Incorrect email or password");
-        this.loading = false;
-      }
-    );
+  public onNext(event) {
+    this.step = 2;
+  }
+
+  public onPrev(event) {
+    this.step = 1;
   }
 }

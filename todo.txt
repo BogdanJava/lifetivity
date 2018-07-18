@@ -1,2 +1,4 @@
 Add spinner and loading state to components which have forms
 Improve registration logic
+add datepicker for birthday
+add separate realizations of FileService for both linux and windows OS

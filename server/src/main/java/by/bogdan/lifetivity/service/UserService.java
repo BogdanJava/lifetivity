@@ -12,10 +12,10 @@ import by.bogdan.lifetivity.security.TokenUserDetails;
 public interface UserService {
     /**
      * Registers a new user
-     * @param authCredentials new user credentials
+     * @param user new user data
      * @return registered user
      */
-    User registerNew(AuthCredentials authCredentials);
+    User registerNew(User user);
 
     /**
      * Logs in existing user

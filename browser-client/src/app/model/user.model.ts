@@ -10,6 +10,7 @@ export class User {
     public registrationDate?: number[],
     public lastLoggedInDateTime?: number[],
     public contactInfo?: ContactInfo,
-    public role?: string
+    public role?: string,
+    public password?: string
   ) {}
 }

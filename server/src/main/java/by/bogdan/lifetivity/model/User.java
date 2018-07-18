@@ -18,11 +18,9 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.TABLE) private Long id;
-    //@NotNull
-    @Column(name = "first_name") private String firstName;
-    //@NotNull
-    @Column(name = "last_name") private String lastName;
-    @Email private String email;
+    @NotNull @Column(name = "first_name") private String firstName;
+    @NotNull @Column(name = "last_name") private String lastName;
+    @NotNull @Email private String email;
     @JsonIgnore private String password;
     @Column(name = "birthday_date") private LocalDate birthdayDate;
     @Column(name = "registration_date") private LocalDate registrationDate;

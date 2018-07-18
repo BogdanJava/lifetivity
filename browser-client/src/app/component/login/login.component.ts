@@ -3,13 +3,10 @@ import { AuthenticationService } from "./../../service/auth/authentication.servi
 import {
   Component,
   OnInit,
-  Output,
-  EventEmitter,
   ViewChild,
   ElementRef
 } from "@angular/core";
 import { Router } from "@angular/router";
-import { User } from "../../model/user.model";
 
 @Component({
   selector: "app-login",
@@ -32,7 +29,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   public submitForm() {
-    console.log(this.email, this.password)
     this.loading = true;
     this.authService.login(this.email, this.password).subscribe(
       result => {
@@ -54,6 +50,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.email = this.emailInput.nativeElement.value;
-    this.password = this.passwordInput.nativeElement;
+    this.password = this.passwordInput.nativeElement.value;
   }
 }

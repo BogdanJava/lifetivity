@@ -1,5 +1,6 @@
 package by.bogdan.lifetivity.model.dto;
 
+import by.bogdan.lifetivity.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,5 @@ import javax.validation.constraints.Size;
 public class AuthCredentials {
     @NotNull @Email private String email;
     @NotNull @Size(min = 8) private String password;
+    private User user;
 }

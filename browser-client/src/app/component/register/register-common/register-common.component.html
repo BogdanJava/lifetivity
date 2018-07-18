@@ -1,0 +1,30 @@
+<div class="register-form-header">
+  Common Info
+</div>
+<form *ngIf="user" #form="ngForm" (submit)="onFormSubmit(form)" autocomplete="off">
+  <div class="form-group">
+    <label for="email">Email*</label>
+    <input type="email" class="form-control" name="email" id="email" [(ngModel)]="user.email" #email="ngModel" required maxlength="50"
+      [class.is-invalid]="(email.errors || emailExists) && email.touched" [class.is-valid]="!email.errors && email.touched">
+    <div *ngIf="email.errors?.required" class="invalid-feedback">Field is required</div>
+    <div *ngIf="emailExists" class="invalid-feedback">Such email already exists</div>
+  </div>
+  <div class="form-group">
+    <label for="firstName">First name*</label>
+    <input type="text" class="form-control" name="firstName" id="firstName" required maxlength="50" [(ngModel)]="user.firstName"
+      #firstName="ngModel" [class.is-valid]="!firstName.errors && firstName.touched" [class.is-invalid]="firstName.errors && firstName.touched">
+    <div *ngIf="firstName.errors?.required" class="invalid-feedback">Field is required</div>
+  </div>
+  <div class="form-group">
+    <label for="lastName">Last name*</label>
+    <input type="text" class="form-control" name="lastName" id="lastName" required maxlength="50" [(ngModel)]="user.lastName"
+      #lastName="ngModel" [class.is-invalid]="lastName.errors && lastName.touched" [class.is-valid]="!lastName.errors && lastName.touched">
+    <div *ngIf="lastName.errors?.required" class="invalid-feedback">Field is required</div>
+  </div>
+  <div class="submit-block">
+    <app-spinner *ngIf="loading"></app-spinner>
+    <button [disabled]="loading" type="submit" class="btn btn-outline-primary btn-next">Next
+      <i class="fas fa-arrow-circle-right"></i>
+    </button>
+  </div>
+</form>
