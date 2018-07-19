@@ -22,7 +22,6 @@ import java.util.Map;
 public class AuthenticationController {
 
     private final UserService userService;
-    private final TokenService tokenService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthCredentials authCredentials) {

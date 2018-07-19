@@ -8,8 +8,13 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <a *ngIf="isLoggedIn" routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
+    <ul class="navbar-nav" *ngIf="isLoggedIn">
+      <li class="nav-item">
+        <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
+      </li>
+      <div class="nav-item">
+        <a class="nav-link" routerLink="/workflow" routerLinkActive="active">Workflow</a>
+      </div>
     </ul>
     <ul class="navbar-nav" *ngIf="!isLoggedIn">
       <li class="nav-item">
@@ -20,7 +25,8 @@
       </li>
     </ul>
     <div class="dropdown" *ngIf="isLoggedIn && currentUser != null">
-      <button class="btn dropdown-toggle" type="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button class="btn btn-outline-light dropdown-toggle" type="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
         <div *ngIf="currentUser.firstName != null && currentUser.lastName != null" style="display: inline">
           {{ currentUser.firstName }} {{currentUser.lastName}}
         </div>

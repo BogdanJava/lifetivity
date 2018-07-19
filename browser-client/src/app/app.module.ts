@@ -28,7 +28,7 @@ import { RegisterContactComponent } from './component/register/register-contact/
     StatusEditorComponent,
     FileSelectDirective,
     RegisterCommonComponent,
-    RegisterContactComponent
+    RegisterContactComponent,
   ],
   imports: [
     BrowserModule,

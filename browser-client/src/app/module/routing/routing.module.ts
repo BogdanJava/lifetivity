@@ -1,3 +1,4 @@
+import { WorkflowComponent } from './../../component/workflow/workflow.component';
 import { EditInfoComponent } from "./../../component/user-info/user-info-main/edit-info/edit-info.component";
 import { UserInfoSidebarComponent } from "./../../component/user-info/user-info-main/user-info-sidebar/user-info-sidebar.component";
 import { UserInfoMainComponent } from "./../../component/user-info/user-info-main/user-info-main.component";
@@ -19,6 +20,7 @@ const routes: Routes = [
     canActivate: [LoggedInGuard]
   },
   { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
+  { path: "workflow", component: WorkflowComponent, canActivate: [AuthGuard] },
   {
     path: "profile",
     component: UserInfoComponent,
@@ -47,5 +49,6 @@ export const components = [
   UserInfoMainComponent,
   UserInfoSidebarComponent,
   EditInfoComponent,
-  EditContactInfoComponent
+  EditContactInfoComponent,
+  WorkflowComponent
 ];
