@@ -25,8 +25,7 @@ public class FileServiceImpl implements FileService {
 
     @Transactional
     @Override
-    public UserPageData saveProfilePhoto(MultipartFile file, long userId,
-                                         HttpServletRequest request) {
+    public UserPageData saveProfilePhoto(MultipartFile file, long userId) {
         String baseUrl = "/uploads/";
         String filePath = String.format("%s%d/%s", baseUrl,
                 userId, file.getOriginalFilename());

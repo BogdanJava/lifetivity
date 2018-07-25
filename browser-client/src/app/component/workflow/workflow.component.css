@@ -1,0 +1,20 @@
+.main-content {
+  background: url('../../../assets/img/workflow_main.jpg') 10% 25% no-repeat;
+  padding: 100px 0;
+}
+
+.jumbotron {
+  width: fit-content;
+  margin: 0 auto;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.58);
+  color: #fffffd;
+}
+
+.button-start {
+  margin-top: 30px;
+  width: 150px;
+  height: 150px;
+  border-radius: 80px;
+  font-size: 30px;
+}

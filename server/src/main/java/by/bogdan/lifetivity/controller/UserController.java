@@ -19,7 +19,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -70,9 +69,8 @@ public class UserController {
     @PostMapping(value = "/upload_profile_photo",
             consumes = {"multipart/form-data"})
     public ResponseEntity uploadProfilePhoto(@AuthenticationPrincipal TokenUserDetails currentUser,
-                                             @RequestPart("file") @Valid @NotNull @NotBlank MultipartFile file,
-                                             HttpServletRequest request) {
-        UserPageData userPageData = fileService.saveProfilePhoto(file, currentUser.getId(), request);
+                                             @RequestPart("file") @Valid @NotNull @NotBlank MultipartFile file) {
+        UserPageData userPageData = fileService.saveProfilePhoto(file, currentUser.getId());
         return ResponseEntity.ok(ImmutableMap.of("success", true, "userPageData", userPageData));
     }
 
@@ -116,4 +114,3 @@ public class UserController {
     }
 
 }
-

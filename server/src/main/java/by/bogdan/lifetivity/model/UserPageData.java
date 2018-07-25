@@ -17,6 +17,6 @@ public class UserPageData {
     @JsonIgnore @Id @GeneratedValue private long id;
     @Size(max = 255) private String status;
     @JsonIgnore private String profilePhotoPath;
-    @JsonIgnore @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore @OneToOne
     private User user;
 }

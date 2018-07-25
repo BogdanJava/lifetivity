@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -29,6 +30,8 @@ public class User {
     private Role role;
     @Column(name = "active") private boolean isAccountActive;
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserPageData userPageData;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserBodyData> userBodyDataSet;
 }

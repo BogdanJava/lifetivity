@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 
 public interface FileService {
-    UserPageData saveProfilePhoto(MultipartFile file, long userId, HttpServletRequest request);
+    UserPageData saveProfilePhoto(MultipartFile file, long userId);
 
     byte[] getProfilePhoto(long userId);
 
