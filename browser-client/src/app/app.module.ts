@@ -17,6 +17,7 @@ import { UserCommonDetailsComponent } from "./component/user-info/user-info-main
 import { StatusEditorComponent } from "./component/user-info/user-info-main/user-common-details/status-editor/status-editor.component";
 import { RegisterCommonComponent } from './component/register/register-common/register-common.component';
 import { RegisterContactComponent } from './component/register/register-contact/register-contact.component';
+import { WorkflowCardComponent } from './component/workflow/workflow-main/workflow-card/workflow-card.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { RegisterContactComponent } from './component/register/register-contact/
     FileSelectDirective,
     RegisterCommonComponent,
     RegisterContactComponent,
+    WorkflowCardComponent,
   ],
   imports: [
     BrowserModule,

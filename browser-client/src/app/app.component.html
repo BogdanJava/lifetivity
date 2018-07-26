@@ -12,9 +12,15 @@
       <li class="nav-item">
         <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
       </li>
-      <div class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" routerLink="/workflow" routerLinkActive="active">Workflow</a>
-      </div>
+      </li>
+      <li class="nav-item user-button-hidden-item">
+        <a routerLink="/profile/main" routerLinkActive="active" class="nav-link">Profile</a>
+      </li>
+      <li class="nav-item user-button-hidden-item">
+        <a style="cursor: pointer;" (click)="authService.logout()" class="nav-link">Logout</a>
+      </li>
     </ul>
     <ul class="navbar-nav" *ngIf="!isLoggedIn">
       <li class="nav-item">
@@ -24,21 +30,21 @@
         <a routerLink="/signup" routerLinkActive="active" class="nav-link">Register</a>
       </li>
     </ul>
-    <div class="dropdown" *ngIf="isLoggedIn && currentUser != null">
-      <button class="btn btn-outline-light dropdown-toggle" type="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-        <div *ngIf="currentUser.firstName != null && currentUser.lastName != null" style="display: inline">
-          {{ currentUser.firstName }} {{currentUser.lastName}}
-        </div>
-        <div *ngIf="currentUser.firstName == null || currentUser.lastName == null" style="display: inline">
-          {{currentUser.email}}
-        </div>
-      </button>
-      <div class="dropdown-menu open-to-left" aria-labelledby="user-menu">
-        <a routerLink="/profile/main" routerLinkActive="active" class="dropdown-item">Profile</a>
-        <div class="dropdown-divider"></div>
-        <a style="cursor: pointer;" (click)="authService.logout()" class="dropdown-item">Logout</a>
+  </div>
+  <div class="dropdown user-button-dropdown" *ngIf="isLoggedIn && currentUser != null">
+    <button class="btn btn-outline-light dropdown-toggle" type="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">
+      <div *ngIf="currentUser.firstName != null && currentUser.lastName != null" style="display: inline">
+        {{ currentUser.firstName }} {{currentUser.lastName}}
       </div>
+      <div *ngIf="currentUser.firstName == null || currentUser.lastName == null" style="display: inline">
+        {{currentUser.email}}
+      </div>
+    </button>
+    <div class="dropdown-menu open-to-left" aria-labelledby="user-menu">
+      <a routerLink="/profile/main" routerLinkActive="active" class="dropdown-item">Profile</a>
+      <div class="dropdown-divider"></div>
+      <a style="cursor: pointer;" (click)="authService.logout()" class="dropdown-item">Logout</a>
     </div>
   </div>
 </nav>

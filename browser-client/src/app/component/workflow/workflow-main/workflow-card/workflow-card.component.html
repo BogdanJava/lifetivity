@@ -1,0 +1,13 @@
+<div class="workflow-card" [style.background]="cardHeaderBgColor">
+  <div class="workflow-card-header">
+    {{cardHeaderText}}
+  </div>
+  <div class="workflow-card-body">
+    <div class="body-icon" #bodyIcon
+    [style.background-image]="securedCardImageUrl">
+    </div>
+    <div class="body-text" #bodyText>
+      {{cardBodyText}}
+    </div>
+  </div>
+</div>

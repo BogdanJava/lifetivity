@@ -17,5 +17,18 @@
 
 .navbar {
   background: #0063ce;
-  z-index: 1000;
+  z-index: 999;
+}
+
+.user-button-hidden-item {
+  display: none
+}
+
+@media screen and (max-width: 991px) {
+  .user-button-dropdown {
+    display: none;
+  }
+  .user-button-hidden-item {
+    display: block
+  }
 }

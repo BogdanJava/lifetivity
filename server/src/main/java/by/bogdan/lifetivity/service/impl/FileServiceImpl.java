@@ -68,7 +68,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public String getFileMediaType(String filename) {
-        String fileType = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+        String fileType = filename.substring(filename.lastIndexOf(".") + 1);
         String contentType = env.getProperty(fileType);
         if (!contentType.equals("")) {
             return contentType;
@@ -78,9 +78,9 @@ public class FileServiceImpl implements FileService {
     private File changeFileName(File file) {
         String absolutePath = file.getAbsolutePath();
         String directory = absolutePath.substring(0, absolutePath.lastIndexOf("/"));
-        String oldFileName = absolutePath.substring(absolutePath.lastIndexOf("/") + 1, absolutePath.length());
+        String oldFileName = absolutePath.substring(absolutePath.lastIndexOf("/") + 1);
         String nameWithoutType = "avatar";
-        String type = oldFileName.substring(oldFileName.lastIndexOf(".") + 1, oldFileName.length());
+        String type = oldFileName.substring(oldFileName.lastIndexOf(".") + 1);
         int tryCount = 0;
         String newPath;
         do {

@@ -1,0 +1,31 @@
+.workflow-dashboard {
+  width: 100%;
+  height: 100vh; /* Change if new cards will be added */
+  background-image: url('../../../../assets/img/workflow_main_bg.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.dashboard-header {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.dashboard-header-header {
+  font-size: 72px;
+  font-weight: 300;
+}
+
+.dashboard-header-text {
+  font-size: 24px;
+  font-weight: 300;
+  margin-top: 20px;
+}
+
+.dashboard-body {
+  margin-top: 50px;
+  margin-bottom: 70px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}

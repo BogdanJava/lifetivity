@@ -1,11 +1,16 @@
 .background {
-  background-image: url('../../../assets/img/workflow_main.jpg');
+  background-image: url('../../../assets/img/workflow_welcome_bg.jpg');
   transition: all 46s ease-out;
   background-size: cover;
-  height: 700px;
+  height: 100%;
   width: 100%;
   background-position: 50% 50%;
   position: relative;
+}
+
+.background-wrapper {
+  height: 100vh;
+  overflow: hidden;
 }
 
 .background-scalable {
@@ -31,4 +36,31 @@
   height: 150px;
   border-radius: 80px;
   font-size: 30px;
+}
+
+.lead {
+  border-bottom: 1px solid #fff;
+  width: fit-content;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1360px) {
+  .jumbotron {
+    width: 540px;
+    font-size: 80%;
+    margin-left: -290px;
+  }
+  .lead {
+    font-size: 1rem;
+  }
+  .jumbotron-header {
+    font-size: 2.4rem;
+  }
+  .button-start {
+    margin-top: 20px;
+    width: 125px;
+    height: 125px;
+  }
 }

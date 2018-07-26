@@ -1,0 +1,56 @@
+.workflow-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0px 0px 20px 8px #0000001f;
+  width: 300px;
+  transition: transform .3s linear;
+}
+
+.workflow-card:hover {
+  transform: scale(1.02);
+}
+
+.workflow-card-header {
+  font-size: 32px;
+  padding: 10px;
+  height: 116px;
+}
+
+.workflow-card-body:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.workflow-card-body {
+  color: rgba(255, 255, 255, 0);
+  background-color: #000;
+}
+
+.body-icon {
+  width: 300px;
+  height: 300px;
+  transition: opacity .5s linear;
+  background-position-x: 45%;
+  background-position-y: 50%;
+  background-size: 155%;
+}
+
+.body-icon:hover {
+  opacity: 0.4;
+}
+
+.body-icon-hover {
+  opacity: 0.4;
+}
+
+.body-text {
+  width: 300px;
+  position: absolute;
+  margin-top: -200px;
+  padding: 0 30px;
+  cursor: default;
+  transition: color .5s linear;
+  font-weight: 400;
+  font-size: 20px;
+}

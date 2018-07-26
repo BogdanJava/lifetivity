@@ -44,6 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.currentUser == undefined || this.userService == null) {
       this.userService.getCurrentUser().subscribe(result => {
         this.currentUser = result;
+      }, error => {
+        console.log(error)
       });
     }
   }
