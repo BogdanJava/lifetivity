@@ -7,3 +7,4 @@ server/src/test/target
 
 ## Angular excludes
 browser-client/node_modules/
+browser-client/package-lock.json
