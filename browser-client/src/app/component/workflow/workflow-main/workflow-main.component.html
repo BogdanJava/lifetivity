@@ -8,14 +8,14 @@
     </div>
   </div>
   <div class="dashboard-body">
-    <workflow-card [cardHeaderText]="'Monthly body statistics'" [cardHeaderBgColor]="'#28a74578'"
-    [cardBodyText]="'Fill your body\'s stats each month to watch it in in dynamics'"
-      [cardImageUrl]="'../../../../../assets/img/golf.jpeg'"></workflow-card>
-    <workflow-card [cardHeaderText]="'Charts & Diagrams'" [cardHeaderBgColor]="'rgba(51, 130, 148, 0.52)'"
-    [cardBodyText]="'See analytics based on your stats & answers'"
-      [cardImageUrl]="'../../../../../assets/img/boat.jpeg'"></workflow-card>
-    <workflow-card [cardHeaderText]="'Per-day questionnaire'" [cardHeaderBgColor]="'rgba(135, 85, 53, 0.47)'"
-    [cardBodyText]="'Answer some questions about your lifestyle each day'"
-      [cardImageUrl]="'../../../../../assets/img/softball.jpeg'"></workflow-card>
+    <workflow-card [cardHeaderText]="'Monthly body statistics'" [cardHeaderBgColor]="'#28a74578'" [cardBodyText]="'Fill your body\'s stats each month to watch it in in dynamics'"
+      [cardImageUrl]="'../../../../../assets/img/golf.jpeg'"
+      routerLink="/workflow/monthly" ></workflow-card>
+    <workflow-card [cardHeaderText]="'Per-day questionnaire'" [cardHeaderBgColor]="'rgba(135, 85, 53, 0.47)'" [cardBodyText]="'Answer some questions about your lifestyle each day'"
+      [cardImageUrl]="'../../../../../assets/img/softball.jpeg'"
+      routerLink="/workflow/questions"></workflow-card>
+    <workflow-card [cardHeaderText]="'Charts & Diagrams'" [cardHeaderBgColor]="'rgba(51, 130, 148, 0.52)'" [cardBodyText]="'See analytics based on your stats & answers'"
+      [cardImageUrl]="'../../../../../assets/img/boat.jpeg'"
+      routerLink="/workflow/charts"></workflow-card>
   </div>
 </div>

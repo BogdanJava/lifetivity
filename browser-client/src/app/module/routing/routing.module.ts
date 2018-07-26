@@ -1,3 +1,5 @@
+import { MonthlyStatisticsComponent } from './../../component/workflow/workflow-main/monthly-statistics/monthly-statistics.component';
+import { QuestionnaireComponent } from './../../component/workflow/workflow-main/questionnaire/questionnaire.component';
 import { WorkflowComponent } from "./../../component/workflow/workflow.component";
 import { EditInfoComponent } from "./../../component/user-info/user-info-main/edit-info/edit-info.component";
 import { UserInfoSidebarComponent } from "./../../component/user-info/user-info-main/user-info-sidebar/user-info-sidebar.component";
@@ -12,6 +14,8 @@ import { RegisterComponent } from "../../component/register/register.component";
 import { LoggedInGuard } from "./../../guard/logged-in/logged-in.guard";
 import { EditContactInfoComponent } from "../../component/user-info/user-info-main/edit-info/edit-contact-info/edit-contact-info.component";
 import { WorkflowMainComponent } from "../../component/workflow/workflow-main/workflow-main.component";
+import { WorkflowParentComponent } from "../../component/workflow/workflow-parent/workflow-parent.component";
+import { ChartsMainComponent } from '../../component/workflow/workflow-main/charts-main/charts-main.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent, canActivate: [LoggedInGuard] },
@@ -23,13 +27,16 @@ const routes: Routes = [
   { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
   {
     path: "workflow",
-    component: WorkflowComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "workflow/main",
-    component: WorkflowMainComponent,
-    canActivate: [AuthGuard]
+    component: WorkflowParentComponent,
+    children: [
+      { path: "welcome", component: WorkflowComponent },
+      { path: "main", component: WorkflowMainComponent },
+      { path: "questions", component: QuestionnaireComponent },
+      { path: "charts", component: ChartsMainComponent },
+      { path: "monthly", component: MonthlyStatisticsComponent }
+    ],
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard]
   },
   {
     path: "profile",
@@ -61,5 +68,9 @@ export const components = [
   EditInfoComponent,
   EditContactInfoComponent,
   WorkflowComponent,
-  WorkflowMainComponent
+  WorkflowMainComponent,
+  WorkflowParentComponent,
+  MonthlyStatisticsComponent,
+  QuestionnaireComponent,
+  ChartsMainComponent
 ];

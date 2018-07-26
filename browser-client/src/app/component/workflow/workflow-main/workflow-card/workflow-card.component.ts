@@ -33,4 +33,8 @@ export class WorkflowCardComponent implements OnInit {
       bodyIconDiv.classList.remove("body-icon-hover");
     });
   }
+
+  public click() {
+
+  }
 }
