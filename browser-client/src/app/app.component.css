@@ -17,4 +17,5 @@
 
 .navbar {
   background: #0063ce;
+  z-index: 1000;
 }
