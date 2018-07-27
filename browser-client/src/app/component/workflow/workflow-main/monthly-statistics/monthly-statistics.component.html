@@ -1,3 +1,14 @@
-<p>
-  monthly-statistics works!
-</p>
+<div class="monthly-dashboard">
+  <div class="dashboard-header">
+    <div class="dashboard-header-header">
+      Monthly Dashboard
+    </div>
+    <div class="dashboard-header-text">
+      Pick the year and the month
+    </div>
+  </div>
+  <div class="dashboard-body" *ngIf="user">
+    <year-picker [years]="years" ></year-picker>
+    <month-carousel></month-carousel>
+  </div>
+</div>

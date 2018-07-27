@@ -18,6 +18,8 @@ import { StatusEditorComponent } from "./component/user-info/user-info-main/user
 import { RegisterCommonComponent } from './component/register/register-common/register-common.component';
 import { RegisterContactComponent } from './component/register/register-contact/register-contact.component';
 import { WorkflowCardComponent } from './component/workflow/workflow-main/workflow-card/workflow-card.component';
+import { YearPickerComponent } from './component/workflow/workflow-main/monthly-statistics/year-picker/year-picker.component'
+import { MonthCarouselComponent } from './component/workflow/workflow-main/monthly-statistics/month-carousel/month-carousel.component'
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { WorkflowCardComponent } from './component/workflow/workflow-main/workfl
     RegisterCommonComponent,
     RegisterContactComponent,
     WorkflowCardComponent,
+    YearPickerComponent,
+    MonthCarouselComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,7 @@ import { WorkflowCardComponent } from './component/workflow/workflow-main/workfl
     ngfModule,
     SimpleNotificationsModule.forRoot(),
     BrowserAnimationsModule,
-    MyDatePickerModule
+    MyDatePickerModule,
   ],
   providers: [
     {
