@@ -1,5 +1,5 @@
 package by.bogdan.lifetivity.model;
 
 public enum Role {
-    ADMIN, USER
+    ADMIN, USER, SUPPORT,
 }
