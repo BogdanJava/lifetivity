@@ -3,12 +3,8 @@ package by.bogdan.lifetivity.service;
 import by.bogdan.lifetivity.model.ContactInfo;
 import by.bogdan.lifetivity.model.User;
 import by.bogdan.lifetivity.model.UserPageData;
-import by.bogdan.lifetivity.model.dto.AuthCredentials;
-import by.bogdan.lifetivity.security.TokenUserDetails;
+import by.bogdan.lifetivity.payload.LoginRequest;
 
-/**
- * Used in {@link by.bogdan.lifetivity.controller.AuthenticationController}
- */
 public interface UserService {
     /**
      * Registers a new user
@@ -19,10 +15,10 @@ public interface UserService {
 
     /**
      * Logs in existing user
-     * @param authCredentials user credentials
+     * @param loginRequest user credentials
      * @return access token
      */
-    String loginUser(AuthCredentials authCredentials);
+    String loginUser(LoginRequest loginRequest);
 
     UserPageData updateStatus(long userId, String status);
     User updateUser(long userId, User user);

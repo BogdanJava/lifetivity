@@ -40,7 +40,7 @@ public class TokenAuthFilter extends OncePerRequestFilter {
     private String getTokenFromRequest(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
+            return bearerToken.substring(7);
         } else return null;
     }
 }

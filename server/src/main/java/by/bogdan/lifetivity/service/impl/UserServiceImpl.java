@@ -6,7 +6,7 @@ import by.bogdan.lifetivity.model.ContactInfo;
 import by.bogdan.lifetivity.model.Role;
 import by.bogdan.lifetivity.model.User;
 import by.bogdan.lifetivity.model.UserPageData;
-import by.bogdan.lifetivity.model.dto.AuthCredentials;
+import by.bogdan.lifetivity.payload.LoginRequest;
 import by.bogdan.lifetivity.repository.UserPageDataRepository;
 import by.bogdan.lifetivity.repository.UserRepository;
 import by.bogdan.lifetivity.service.TokenService;
@@ -49,13 +49,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String loginUser(AuthCredentials authCredentials) throws BadCredentialsException {
+    public String loginUser(LoginRequest loginRequest) throws BadCredentialsException {
         try {
             Authentication authentication = authManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authCredentials.getEmail(), authCredentials.getPassword())
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            User user = userRepository.findByEmail(authCredentials.getEmail());
+            User user = userRepository.findByEmail(loginRequest.getEmail());
             user.setLastLoggedInDateTime(LocalDateTime.now());
             return tokenService.generateToken(authentication);
         } catch (AuthenticationException e) {

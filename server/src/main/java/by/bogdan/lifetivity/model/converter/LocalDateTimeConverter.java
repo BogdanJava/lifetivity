@@ -5,6 +5,9 @@ import javax.persistence.Converter;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * Used for mapping Java8 date API to plain date API
+ */
 @Converter(autoApply = true)
 public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Timestamp> {
     @Override
