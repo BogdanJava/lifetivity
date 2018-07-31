@@ -6,12 +6,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./user-info.component.css"]
 })
 export class UserInfoComponent {
-  public tabName: string;
 
   constructor() {}
-
-  setTabName(currentTab) {
-    this.tabName = currentTab.getTabName();
-  }
 
 }

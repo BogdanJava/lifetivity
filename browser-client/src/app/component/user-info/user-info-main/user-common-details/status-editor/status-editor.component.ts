@@ -1,5 +1,6 @@
 import { UserService } from "./../../../../../service/user/user.service";
 import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
+import { User } from "../../../../../model/user.model";
 
 @Component({
   selector: "app-status-editor",
@@ -11,12 +12,13 @@ export class StatusEditorComponent implements OnInit {
 
   @Input() public display: boolean;
   @Input() public status: string;
+  @Input() public user: User
   public newStatus: string;
   @Output()
   public statusChangeEventEmitter: EventEmitter<string> = new EventEmitter();
 
   changeStatus() {
-    this.userService.updateStatus(this.newStatus).subscribe(result => {
+    this.userService.updateStatus(this.newStatus, this.user.id).subscribe(result => {
       if (result.success) {
         console.log(result.message);
         this.display = false;

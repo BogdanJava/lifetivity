@@ -44,6 +44,4 @@ public class User {
     @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserPageData userPageData;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<UserBodyData> userBodyDataSet;
 }

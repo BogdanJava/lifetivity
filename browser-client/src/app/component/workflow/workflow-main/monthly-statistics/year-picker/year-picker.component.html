@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <div class="carousel-bg">
+    <div class="carousel-arrow">
+      <i class="fas fa-chevron-up"></i>
+    </div>
+    <div class="carousel-body">
+      <button *ngFor="let year of years"
+      class="carousel-block btn btn-outline-light" [value]="year"
+      (click)="chooseYear($event)">
+        {{year}}
+      </button>
+    </div>
+    <div class="carousel-arrow">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </div>
+</div>

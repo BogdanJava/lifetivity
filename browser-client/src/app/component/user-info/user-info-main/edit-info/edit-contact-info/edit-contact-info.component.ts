@@ -22,16 +22,23 @@ export class EditContactInfoComponent implements OnInit {
 
   public infoUpdated = false;
   public contactInfo: ContactInfo;
+  public user: User;
 
   ngOnInit(): void {
-    this.userService.getUserContactInfo().subscribe(result => {
-      this.contactInfo = result;
-    });
+    this.userService.getCurrentUserObservable().subscribe(user => {
+      this.user = user;
+    })
+    this.userService.getCurrentUser().subscribe(user => {
+      this.user = user;
+      this.userService.getUserContactInfo(this.user.id).subscribe(result => {
+        this.contactInfo = result;
+      });
+    })
   }
 
   onFormSubmit(form: NgForm) {
     if (form.valid) {
-      this.userService.updateUserContactInfo(this.contactInfo).subscribe(
+      this.userService.updateUserContactInfo(this.contactInfo, this.user.id).subscribe(
         result => {
           this.contactInfo = result;
           this.infoUpdated = true;

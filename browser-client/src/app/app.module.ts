@@ -19,7 +19,7 @@ import { RegisterCommonComponent } from './component/register/register-common/re
 import { RegisterContactComponent } from './component/register/register-contact/register-contact.component';
 import { WorkflowCardComponent } from './component/workflow/workflow-main/workflow-card/workflow-card.component';
 import { YearPickerComponent } from './component/workflow/workflow-main/monthly-statistics/year-picker/year-picker.component'
-import { MonthCarouselComponent } from './component/workflow/workflow-main/monthly-statistics/month-carousel/month-carousel.component'
+import { MonthCarouselComponent } from './component/workflow/workflow-main/monthly-statistics/month-carousel/month-carousel.component';
 
 @NgModule({
   declarations: [

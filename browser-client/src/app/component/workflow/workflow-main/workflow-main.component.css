@@ -1,9 +1,11 @@
 .workflow-dashboard {
   width: 100%;
-  height: 100vh; /* Change if new cards will be added */
+  height: 100%; /* Change if new cards will be added */
+  min-height: 100vh;
   background-image: url('../../../../assets/img/workflow_main_bg.jpg');
-  background-size: 100%;
   background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: 49%;
 }
 
 .dashboard-header {

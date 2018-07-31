@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="dashboard-body" *ngIf="user">
-    <year-picker [years]="years" ></year-picker>
-    <month-carousel></month-carousel>
+    <month-carousel [year]="selectedYear" *ngIf="showMonths"></month-carousel>
+    <year-picker *ngIf="showYears" (year)="chooseYear($event)" [years]="years"></year-picker>
   </div>
 </div>

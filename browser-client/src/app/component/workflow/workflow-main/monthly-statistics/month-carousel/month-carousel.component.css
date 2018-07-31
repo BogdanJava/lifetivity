@@ -1,0 +1,33 @@
+.carousel-body {
+  justify-content: end !important;
+}
+
+.month-block {
+  margin: 10px 0 0 2%;
+  flex-grow: 1;
+  height: 100px;
+  width: calc(100% * (1/7) - 10px - 1px);
+  border: none;
+  font-size: 28px;
+  color: #dae0e5;
+  flex-grow: 1;
+}
+
+.month-block:hover {
+  color: rgb(62, 64, 73);
+}
+
+@media screen and (max-width: 1650px) {
+  .carousel-bg {
+    margin-top: 0px !important;
+  }
+  .month-block {
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .month-block {
+    width: fit-content;
+  }
+}

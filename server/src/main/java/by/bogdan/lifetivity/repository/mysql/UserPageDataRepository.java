@@ -1,4 +1,4 @@
-package by.bogdan.lifetivity.repository;
+package by.bogdan.lifetivity.repository.mysql;
 
 import by.bogdan.lifetivity.model.UserPageData;
 import org.springframework.data.jpa.repository.JpaRepository;

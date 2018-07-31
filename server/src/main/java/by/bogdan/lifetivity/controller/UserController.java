@@ -1,12 +1,11 @@
 package by.bogdan.lifetivity.controller;
 
 import by.bogdan.lifetivity.exception.FileException;
-import by.bogdan.lifetivity.exception.ForbiddenException;
 import by.bogdan.lifetivity.model.ContactInfo;
 import by.bogdan.lifetivity.model.User;
 import by.bogdan.lifetivity.model.UserPageData;
-import by.bogdan.lifetivity.repository.UserPageDataRepository;
-import by.bogdan.lifetivity.repository.UserRepository;
+import by.bogdan.lifetivity.repository.mysql.UserPageDataRepository;
+import by.bogdan.lifetivity.repository.mysql.UserRepository;
 import by.bogdan.lifetivity.security.TokenUserDetails;
 import by.bogdan.lifetivity.service.FileService;
 import by.bogdan.lifetivity.service.UserService;
@@ -15,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/api/user")
@@ -40,37 +41,41 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findByEmail(currentUser.getUsername()));
     }
 
-    @GetMapping("/page_data")
-    public ResponseEntity getUserPageData(@AuthenticationPrincipal TokenUserDetails currentUser) {
-        return ResponseEntity.ok(userPageDataRepository.getByUserId(currentUser.getId()));
+    @GetMapping("/page_data/{userId}")
+    public ResponseEntity getUserPageData(@PathVariable long userId) {
+        return ResponseEntity.ok(userPageDataRepository.getByUserId(userId));
     }
 
-    @GetMapping("/contact_info")
-    public ResponseEntity getUserContactInfo(@AuthenticationPrincipal TokenUserDetails currentUser) {
-        final ContactInfo userContactInfo = userRepository.getUserContactInfo(currentUser.getId());
+    @GetMapping("/contact_info/{userId}")
+    public ResponseEntity getUserContactInfo(@PathVariable long userId) {
+        final ContactInfo userContactInfo = userRepository.getUserContactInfo(userId);
         return ResponseEntity.ok(userContactInfo != null ? userContactInfo : new ContactInfo());
     }
 
-    @PutMapping("/update_status")
-    public ResponseEntity updateStatus(@AuthenticationPrincipal TokenUserDetails currentUser,
+    @PreAuthorize("#userId == authentication.principal.getId() || hasRole('ADMIN')")
+    @PutMapping("/update_status/{userId}")
+    public ResponseEntity updateStatus(@PathVariable long userId,
                                        @RequestParam String status) {
-        UserPageData data = userService.updateStatus(currentUser.getId(), status);
+        UserPageData data = userService.updateStatus(userId, status);
         return ResponseEntity.ok(ImmutableMap.of("message", "status changed",
                 "success", true, "status", data.getStatus()));
     }
 
-    @PutMapping("/update_contact_info")
-    public ResponseEntity updateContactInfo(@AuthenticationPrincipal TokenUserDetails currentUser,
+    @PreAuthorize("#userId == authentication.principal.getId() || hasRole('ADMIN')")
+    @PutMapping("/update_contact_info/{userId}")
+    public ResponseEntity updateContactInfo(@PathVariable long userId,
                                             @RequestBody ContactInfo contactInfo) {
-        ContactInfo updatedInfo = this.userService.updateContactInfo(currentUser.getId(), contactInfo);
+        ContactInfo updatedInfo = this.userService.updateContactInfo(userId, contactInfo);
         return ResponseEntity.ok(updatedInfo);
     }
 
+    @PreAuthorize("#userId == authentication.principal.getId() || hasRole('ADMIN')")
     @PostMapping(value = "/upload_profile_photo",
             consumes = {"multipart/form-data"})
-    public ResponseEntity uploadProfilePhoto(@AuthenticationPrincipal TokenUserDetails currentUser,
-                                             @RequestPart("file") @Valid @NotNull @NotBlank MultipartFile file) {
-        UserPageData userPageData = fileService.saveProfilePhoto(file, currentUser.getId());
+    public ResponseEntity uploadProfilePhoto(@PathVariable long userId,
+                                             @RequestPart("file") @Valid @NotNull
+                                             @NotBlank MultipartFile file) {
+        UserPageData userPageData = fileService.saveProfilePhoto(file, userId);
         return ResponseEntity.ok(ImmutableMap.of("success", true, "userPageData", userPageData));
     }
 
@@ -84,9 +89,9 @@ public class UserController {
                     userPageDataRepository.getByUserId(userId).getProfilePhotoPath());
             response.setContentType(contentType);
             return ResponseEntity.ok(ImmutableMap.of("file",
-                    new String(Base64.encodeBase64(fileService.getProfilePhoto(userId)), "UTF-8"),
+                    new String(Base64.encodeBase64(fileService.getProfilePhoto(userId)), StandardCharsets.UTF_8),
                     "mimeType", contentType));
-        } catch (FileException | UnsupportedEncodingException e) {
+        } catch (FileException e) {
             return ResponseEntity.status(500).body(e.getMessage());
         }
     }
@@ -100,13 +105,14 @@ public class UserController {
                 ResponseEntity.status(404).body(ImmutableMap.of("status", 404));
     }
 
+    @PreAuthorize("#userId == authentication.principal.getId() || hasRole('ADMIN')")
     @PutMapping
-    public ResponseEntity updateUser(@AuthenticationPrincipal TokenUserDetails currentUser,
+    public ResponseEntity updateUser(@RequestParam long userId,
                                      @RequestBody @Valid User user) {
         try {
-            User updatedUser = this.userService.updateUser(currentUser.getId(), user);
+            User updatedUser = this.userService.updateUser(userId, user);
             return ResponseEntity.ok(updatedUser);
-        } catch (ForbiddenException e) {
+        } catch (AccessDeniedException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ImmutableMap.of(
                     "message", e.getMessage()
             ));

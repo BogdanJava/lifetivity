@@ -55,6 +55,9 @@ export class EditInfoComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe(result => {
       this.user = result;
+      this.userService.getUserPageData(this.user.id).subscribe(result => {
+        this.pageData = result;
+      });
       let bday = this.user.birthdayDate;
       if (bday) {
         this.birthday = {
@@ -84,9 +87,6 @@ export class EditInfoComponent implements OnInit {
         }
       );
     });
-    this.userService.getUserPageData().subscribe(result => {
-      this.pageData = result;
-    });
   }
 
   selectFile() {
@@ -110,10 +110,10 @@ export class EditInfoComponent implements OnInit {
       let bday = this.birthday.date;
       this.user.birthdayDate = [bday.year, bday.month, bday.day];
     } else {
-      this.user.birthdayDate = []
+      this.user.birthdayDate = [];
     }
     if (form.valid) {
-      this.userService.updateUser(this.user).subscribe(
+      this.userService.updateUser(this.user, this.user.id).subscribe(
         result => {
           this.userService.setUser(result);
           this.user = result;
@@ -130,20 +130,22 @@ export class EditInfoComponent implements OnInit {
   }
 
   saveNewPhoto() {
-    this.userService.uploadPhoto(this.formData).subscribe(result => {
-      if (result.success) {
-        this.userService.getProfilePhoto(this.user.id).subscribe(result => {
-          this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(
-            `data:${result.mimeType};base64, ${result.file}`
-          );
-          this._notifications.info(
-            "Success",
-            "Photo has been successfully changed"
-          );
-          this.cancelNewPhoto();
-        });
-      }
-    });
+    this.userService
+      .uploadPhoto(this.formData, this.user.id)
+      .subscribe(result => {
+        if (result.success) {
+          this.userService.getProfilePhoto(this.user.id).subscribe(result => {
+            this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(
+              `data:${result.mimeType};base64, ${result.file}`
+            );
+            this._notifications.info(
+              "Success",
+              "Photo has been successfully changed"
+            );
+            this.cancelNewPhoto();
+          });
+        }
+      });
   }
 
   cancelNewPhoto() {

@@ -23,8 +23,8 @@ export class UserService {
     return this.currentUser.asObservable();
   }
 
-  getUserPageData(): Observable<PageData> {
-    return this.http.get<PageData>(`${this.userUrl}/page_data`, {
+  getUserPageData(userId): Observable<PageData> {
+    return this.http.get<PageData>(`${this.userUrl}/page_data/${userId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
@@ -39,8 +39,8 @@ export class UserService {
     });
   }
 
-  updateStatus(status: string): Observable<any> {
-    return this.http.put(`${this.userUrl}/update_status`, null, {
+  updateStatus(status: string, userId): Observable<any> {
+    return this.http.put(`${this.userUrl}/update_status/${userId}`, null, {
       params: {
         status: status
       },
@@ -50,25 +50,25 @@ export class UserService {
     });
   }
 
-  updateUserContactInfo(contactInfo: ContactInfo): Observable<any> {
-    return this.http.put(`${this.userUrl}/update_contact_info`, contactInfo, {
+  updateUserContactInfo(contactInfo: ContactInfo, userId): Observable<any> {
+    return this.http.put(`${this.userUrl}/update_contact_info/${userId}`, contactInfo, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     });
   }
 
-  updateUser(user: User): Observable<any> {
-    return this.http.put<any>(`${this.userUrl}`, user, {
+  updateUser(user: User, usedId): Observable<any> {
+    return this.http.put<any>(`${this.userUrl}?userId=${usedId}`, user, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     });
   }
 
-  uploadPhoto(formData: FormData): Observable<any> {
+  uploadPhoto(formData: FormData, userId): Observable<any> {
     return this.http.post<any>(
-      `${this.userUrl}/upload_profile_photo`,
+      `${this.userUrl}/upload_profile_photo/${userId}`,
       formData,
       {
         headers: {
@@ -87,8 +87,8 @@ export class UserService {
     });
   }
 
-  getUserContactInfo(): Observable<any> {
-    return this.http.get<any>(`${this.userUrl}/contact_info`, {
+  getUserContactInfo(userId): Observable<any> {
+    return this.http.get<any>(`${this.userUrl}/contact_info/${userId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }

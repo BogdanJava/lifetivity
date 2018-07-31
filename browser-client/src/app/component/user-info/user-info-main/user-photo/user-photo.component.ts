@@ -32,7 +32,7 @@ export class UserPhotoComponent implements OnInit {
     if (file) {
       let formData: FormData = new FormData();
       formData.append("file", file, file.name);
-      this.userService.uploadPhoto(formData).subscribe(result => {
+      this.userService.uploadPhoto(formData, this.user.id).subscribe(result => {
         console.log(result);
       });
     }

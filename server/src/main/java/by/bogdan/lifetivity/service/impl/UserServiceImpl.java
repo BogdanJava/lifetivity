@@ -1,17 +1,17 @@
 package by.bogdan.lifetivity.service.impl;
 
 import by.bogdan.lifetivity.exception.EmailAlreadyExistsException;
-import by.bogdan.lifetivity.exception.ForbiddenException;
 import by.bogdan.lifetivity.model.ContactInfo;
 import by.bogdan.lifetivity.model.Role;
 import by.bogdan.lifetivity.model.User;
 import by.bogdan.lifetivity.model.UserPageData;
 import by.bogdan.lifetivity.payload.LoginRequest;
-import by.bogdan.lifetivity.repository.UserPageDataRepository;
-import by.bogdan.lifetivity.repository.UserRepository;
+import by.bogdan.lifetivity.repository.mysql.UserPageDataRepository;
+import by.bogdan.lifetivity.repository.mysql.UserRepository;
 import by.bogdan.lifetivity.service.TokenService;
 import by.bogdan.lifetivity.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -63,9 +63,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @PreAuthorize("#userId == #user.id")
     @Override
     public User updateUser(long userId, User user) {
-        if (userId != user.getId()) throw new ForbiddenException("Forbidden method invocation");
         user.setPassword(this.userRepository.getOne(userId).getPassword());
         return this.userRepository.save(user);
     }

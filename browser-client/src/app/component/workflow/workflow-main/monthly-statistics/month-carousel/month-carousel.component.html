@@ -1,3 +1,15 @@
-<p>
-  month-carousel works!
-</p>
+<div class="container-fluid">
+  <div class="carousel-bg">
+    <div class="carousel-header">
+      Year {{year}}
+    </div>
+    <div class="carousel-body">
+      <button *ngFor="let month of months; let i = index"
+      [attr.data-index]="i" class="btn
+      btn-outline-light month-block"
+      routerLink="{{year}}/{{i+1}}">
+        {{month}}
+      </button>
+    </div>
+  </div>
+</div>

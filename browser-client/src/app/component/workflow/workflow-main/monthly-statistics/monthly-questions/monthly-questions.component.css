@@ -1,0 +1,17 @@
+.underscored-text {
+  border-bottom: 1px solid;
+}
+
+.questions-card {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.questions-card-header {
+  font-size: 48px;
+  font-weight: 200;
+}
+
+.questions-card-body {}
+
+.questions-card-footer {}

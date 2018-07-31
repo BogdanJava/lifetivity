@@ -17,10 +17,10 @@ export class UserInfoMainComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(result => {
-      this.user = result
-    })
-    this.userService.getUserPageData().subscribe(result => {
-      this.pageData = result;
+      this.user = result;
+      this.userService.getUserPageData(this.user.id).subscribe(result => {
+        this.pageData = result;
+      })
     })
   }
 

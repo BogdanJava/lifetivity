@@ -16,6 +16,9 @@ export class MonthlyStatisticsComponent implements OnInit {
 
   public user: User;
   public years = new Array<number>();
+  public selectedYear: number;
+  public showMonths = false;
+  public showYears = true;
 
   ngOnInit() {
     this.userService.getCurrentUserObservable().subscribe(user => {
@@ -29,5 +32,11 @@ export class MonthlyStatisticsComponent implements OnInit {
       });
       console.log(this.years);
     });
+  }
+
+  public chooseYear(year) {
+    this.selectedYear = year;
+    this.showMonths = true;
+    this.showYears = false;
   }
 }

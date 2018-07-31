@@ -2,8 +2,7 @@ package by.bogdan.lifetivity.service.impl;
 
 import by.bogdan.lifetivity.exception.FileException;
 import by.bogdan.lifetivity.model.UserPageData;
-import by.bogdan.lifetivity.repository.UserPageDataRepository;
-import by.bogdan.lifetivity.security.TokenUserDetails;
+import by.bogdan.lifetivity.repository.mysql.UserPageDataRepository;
 import by.bogdan.lifetivity.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 

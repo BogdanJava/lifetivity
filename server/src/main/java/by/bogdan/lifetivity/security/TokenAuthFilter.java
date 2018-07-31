@@ -1,6 +1,6 @@
 package by.bogdan.lifetivity.security;
 
-import by.bogdan.lifetivity.repository.UserRepository;
+import by.bogdan.lifetivity.repository.mysql.UserRepository;
 import by.bogdan.lifetivity.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

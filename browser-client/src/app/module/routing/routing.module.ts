@@ -16,8 +16,10 @@ import { EditContactInfoComponent } from "../../component/user-info/user-info-ma
 import { WorkflowMainComponent } from "../../component/workflow/workflow-main/workflow-main.component";
 import { WorkflowParentComponent } from "../../component/workflow/workflow-parent/workflow-parent.component";
 import { ChartsMainComponent } from '../../component/workflow/workflow-main/charts-main/charts-main.component';
+import { MonthlyQuestionsComponent } from '../../component/workflow/workflow-main/monthly-statistics/monthly-questions/monthly-questions.component';
 
 const routes: Routes = [
+  { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "login", component: LoginComponent, canActivate: [LoggedInGuard] },
   {
     path: "signup",
@@ -33,7 +35,8 @@ const routes: Routes = [
       { path: "main", component: WorkflowMainComponent },
       { path: "questions", component: QuestionnaireComponent },
       { path: "charts", component: ChartsMainComponent },
-      { path: "monthly", component: MonthlyStatisticsComponent }
+      { path: "monthly", component: MonthlyStatisticsComponent },
+      { path: "monthly/:year/:month", component: MonthlyQuestionsComponent }
     ],
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard]
@@ -72,5 +75,6 @@ export const components = [
   WorkflowParentComponent,
   MonthlyStatisticsComponent,
   QuestionnaireComponent,
-  ChartsMainComponent
+  ChartsMainComponent,
+  MonthlyQuestionsComponent
 ];

@@ -1,7 +1,7 @@
 package by.bogdan.lifetivity.security;
 
 import by.bogdan.lifetivity.model.User;
-import by.bogdan.lifetivity.repository.UserRepository;
+import by.bogdan.lifetivity.repository.mysql.UserRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
