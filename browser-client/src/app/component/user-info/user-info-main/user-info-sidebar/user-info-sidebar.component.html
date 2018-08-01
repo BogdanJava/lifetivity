@@ -13,4 +13,12 @@
       </li>
     </ul>
   </li>
+  <li class="nav-item">
+    <a routerLink="workflow" routerLinkActive="activeTab" class="nav-link">Workflow</a>
+    <ul class="nav sub-sidebar" [class.hidden-bar]="!isSubTabShown(['kinds', 'workflow'])">
+      <li class="nav-item">
+        <a routerLinkActive="activeTab" routerLink="workflow/kinds" class="nav-link">Statistics Kinds</a>
+      </li>
+    </ul>
+  </li>
 </ul>

@@ -1,5 +1,5 @@
-import { UserService } from "./../../service/user/user.service";
-import { AuthenticationService } from "./../../service/auth/authentication.service";
+import { UserService } from "../../service/user/user.service";
+import { AuthenticationService } from "../../service/auth/authentication.service";
 import {
   Component,
   OnInit,

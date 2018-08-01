@@ -1,16 +1,14 @@
-package by.bogdan.lifetivity.model;
+package by.bogdan.lifetivity.model.document;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Map;
-
 @Data
 @Document
-public class MonthlyStatistics {
+public class StatisticsKind {
     @Id private String id;
+    private String name;
+    private String measure;
     private long mysqlUserId;
-    private Map<String, Object> statistics;
-    private String monthDescription;
 }

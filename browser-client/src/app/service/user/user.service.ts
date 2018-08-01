@@ -1,4 +1,4 @@
-import { PageData } from "./../../model/user-page-data.model";
+import { PageData } from "../../model/user-page-data.model";
 import { Observable, Subject } from "rxjs";
 import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -21,6 +21,10 @@ export class UserService {
 
   getCurrentUserObservable(): Observable<User> {
     return this.currentUser.asObservable();
+  }
+
+  getCurrentUserPromise(): Promise<User> {
+    return this.currentUser.toPromise();
   }
 
   getUserPageData(userId): Observable<PageData> {

@@ -1,4 +1,4 @@
-package by.bogdan.lifetivity.listener.security;
+package by.bogdan.lifetivity.listener;
 
 import by.bogdan.lifetivity.security.TokenUserDetails;
 import lombok.extern.slf4j.Slf4j;

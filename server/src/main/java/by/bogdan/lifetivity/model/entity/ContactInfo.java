@@ -1,4 +1,4 @@
-package by.bogdan.lifetivity.model;
+package by.bogdan.lifetivity.model.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

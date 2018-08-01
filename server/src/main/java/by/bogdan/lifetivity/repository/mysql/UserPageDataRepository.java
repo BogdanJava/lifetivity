@@ -1,6 +1,6 @@
 package by.bogdan.lifetivity.repository.mysql;
 
-import by.bogdan.lifetivity.model.UserPageData;
+import by.bogdan.lifetivity.model.entity.UserPageData;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserPageDataRepository extends JpaRepository<UserPageData, Long> {

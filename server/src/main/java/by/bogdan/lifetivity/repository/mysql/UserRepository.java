@@ -1,7 +1,7 @@
 package by.bogdan.lifetivity.repository.mysql;
 
-import by.bogdan.lifetivity.model.ContactInfo;
-import by.bogdan.lifetivity.model.User;
+import by.bogdan.lifetivity.model.entity.ContactInfo;
+import by.bogdan.lifetivity.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

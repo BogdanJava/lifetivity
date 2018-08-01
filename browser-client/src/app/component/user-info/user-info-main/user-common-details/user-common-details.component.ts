@@ -1,5 +1,5 @@
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { PageData } from "./../../../../model/user-page-data.model";
+import { PageData } from "../../../../model/user-page-data.model";
 import { Component, OnInit, Input } from "@angular/core";
 import { User } from "../../../../model/user.model";
 

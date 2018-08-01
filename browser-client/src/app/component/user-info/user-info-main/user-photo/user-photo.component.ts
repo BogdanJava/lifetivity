@@ -1,6 +1,6 @@
-import { User } from "./../../../../model/user.model";
-import { UserService } from "./../../../../service/user/user.service";
-import { PageData } from "./../../../../model/user-page-data.model";
+import { User } from "../../../../model/user.model";
+import { UserService } from "../../../../service/user/user.service";
+import { PageData } from "../../../../model/user-page-data.model";
 import { Component, Input, ElementRef, ViewChild, OnInit } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 

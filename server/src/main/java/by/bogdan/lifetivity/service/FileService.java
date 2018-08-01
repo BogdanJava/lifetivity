@@ -1,10 +1,7 @@
 package by.bogdan.lifetivity.service;
 
-import by.bogdan.lifetivity.model.UserPageData;
-import by.bogdan.lifetivity.security.TokenUserDetails;
+import by.bogdan.lifetivity.model.entity.UserPageData;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
 
 public interface FileService {
     UserPageData saveProfilePhoto(MultipartFile file, long userId);

@@ -1,4 +1,4 @@
-package by.bogdan.lifetivity.model;
+package by.bogdan.lifetivity.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

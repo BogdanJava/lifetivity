@@ -1,9 +1,9 @@
 package by.bogdan.lifetivity.controller;
 
 import by.bogdan.lifetivity.exception.FileException;
-import by.bogdan.lifetivity.model.ContactInfo;
-import by.bogdan.lifetivity.model.User;
-import by.bogdan.lifetivity.model.UserPageData;
+import by.bogdan.lifetivity.model.entity.ContactInfo;
+import by.bogdan.lifetivity.model.entity.User;
+import by.bogdan.lifetivity.model.entity.UserPageData;
 import by.bogdan.lifetivity.repository.mysql.UserPageDataRepository;
 import by.bogdan.lifetivity.repository.mysql.UserRepository;
 import by.bogdan.lifetivity.security.TokenUserDetails;

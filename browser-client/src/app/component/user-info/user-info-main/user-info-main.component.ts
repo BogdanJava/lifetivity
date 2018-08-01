@@ -1,5 +1,5 @@
-import { PageData } from './../../../model/user-page-data.model';
-import { UserService } from './../../../service/user/user.service';
+import { PageData } from '../../../model/user-page-data.model';
+import { UserService } from '../../../service/user/user.service';
 import { Component, OnInit } from "@angular/core";
 import { User } from '../../../model/user.model';
 

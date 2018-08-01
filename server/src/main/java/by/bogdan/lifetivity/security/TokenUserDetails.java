@@ -1,6 +1,6 @@
 package by.bogdan.lifetivity.security;
 
-import by.bogdan.lifetivity.model.User;
+import by.bogdan.lifetivity.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,8 +1,8 @@
 package by.bogdan.lifetivity.controller;
 
-import by.bogdan.lifetivity.model.ContactInfo;
-import by.bogdan.lifetivity.model.Role;
-import by.bogdan.lifetivity.model.User;
+import by.bogdan.lifetivity.model.entity.ContactInfo;
+import by.bogdan.lifetivity.model.entity.Role;
+import by.bogdan.lifetivity.model.entity.User;
 import by.bogdan.lifetivity.payload.AuthResponse;
 import by.bogdan.lifetivity.payload.ErrorResponse;
 import by.bogdan.lifetivity.payload.LoginRequest;

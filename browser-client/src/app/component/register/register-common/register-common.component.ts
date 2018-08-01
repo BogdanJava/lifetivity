@@ -1,4 +1,4 @@
-import { AuthenticationService } from "./../../../service/auth/authentication.service";
+import { AuthenticationService } from "../../../service/auth/authentication.service";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { User } from "../../../model/user.model";
 import { NgForm } from "@angular/forms";

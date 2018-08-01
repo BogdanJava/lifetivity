@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row-edit-block">
+    <div class="tab-header">
+      <div class="tab-header-text">
+        Statistics kinds
+      </div>
+    </div>
+    <div class="tab-content">
+      <div class="container">
+        <div class="row">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Measure</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let kind of statKinds">
+                <th scope="row">{{kind.id}}</th>
+                <th>{{kind.name}}</th>
+                <th>{{kind.measure}}</th>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="!kindsExist" class="missing-rows">
+            Add some statistics kinds...
+          </div>
+          <button class="btn btn-add-kind btn-outline-success" data-toggle="modal" data-target="#addKindsModal">
+            <i class="fas fa-plus-circle"></i> Add new
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addKindsModal" tabindex="-1" role="dialog" aria-labelledby="addKindsModalLabel" aria-hidden="true">
+  <div role="document" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addKindsModalLabel">
+          New Statistics Kind
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,10 @@
 package by.bogdan.lifetivity.service.impl;
 
 import by.bogdan.lifetivity.exception.EmailAlreadyExistsException;
-import by.bogdan.lifetivity.model.ContactInfo;
-import by.bogdan.lifetivity.model.Role;
-import by.bogdan.lifetivity.model.User;
-import by.bogdan.lifetivity.model.UserPageData;
+import by.bogdan.lifetivity.model.entity.ContactInfo;
+import by.bogdan.lifetivity.model.entity.Role;
+import by.bogdan.lifetivity.model.entity.User;
+import by.bogdan.lifetivity.model.entity.UserPageData;
 import by.bogdan.lifetivity.payload.LoginRequest;
 import by.bogdan.lifetivity.repository.mysql.UserPageDataRepository;
 import by.bogdan.lifetivity.repository.mysql.UserRepository;

@@ -1,8 +1,8 @@
 package by.bogdan.lifetivity.service;
 
-import by.bogdan.lifetivity.model.ContactInfo;
-import by.bogdan.lifetivity.model.User;
-import by.bogdan.lifetivity.model.UserPageData;
+import by.bogdan.lifetivity.model.entity.ContactInfo;
+import by.bogdan.lifetivity.model.entity.User;
+import by.bogdan.lifetivity.model.entity.UserPageData;
 import by.bogdan.lifetivity.payload.LoginRequest;
 
 public interface UserService {

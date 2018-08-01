@@ -1,7 +1,7 @@
 package by.bogdan.lifetivity.controller;
 
 import by.bogdan.lifetivity.exception.EmailAlreadyExistsException;
-import by.bogdan.lifetivity.model.User;
+import by.bogdan.lifetivity.model.entity.User;
 import by.bogdan.lifetivity.payload.LoginRequest;
 import by.bogdan.lifetivity.payload.AuthResponse;
 import by.bogdan.lifetivity.payload.ErrorResponse;
