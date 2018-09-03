@@ -13,8 +13,10 @@ import { touchForm } from "../../../service/utils";
 export class RegisterCommonComponent implements OnInit {
   constructor(private authService: AuthenticationService) {}
 
-  @Input() public user: User;
-  @Output() public next = new EventEmitter<User>();
+  @Input()
+  public user: User;
+  @Output()
+  public next = new EventEmitter<User>();
   public emailExists: boolean = false;
   public loading = false;
 
@@ -26,20 +28,17 @@ export class RegisterCommonComponent implements OnInit {
     if (form.valid) {
       this.authService.isEmailReserved(this.user.email).subscribe(
         result => {
-          if (!result) {
-            this.next.next(this.user);
-          } else {
-            this.emailExists = true;
-          }
+          this.emailExists = true;
           this.loading = false;
         },
         _ => {
+          this.next.next(this.user);
           this.loading = false;
         }
       );
     } else {
       this.loading = false;
-      touchForm()
+      touchForm();
     }
   }
 }

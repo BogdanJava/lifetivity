@@ -13,10 +13,11 @@ export class RegisterComponent {
 
   constructor() {
     this.user = new User();
-    this.user.contactInfo = new ContactInfo()
+    this.user.contactInfo = new ContactInfo();
   }
 
   public onNext(event) {
+    console.log(2);
     this.step = 2;
   }
 

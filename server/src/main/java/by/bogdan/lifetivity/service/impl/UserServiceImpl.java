@@ -48,13 +48,13 @@ public class UserServiceImpl implements UserService {
                 " already exists");
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public String loginUser(LoginRequest loginRequest) throws BadCredentialsException {
         try {
             Authentication authentication = authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
             );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
             User user = userRepository.findByEmail(loginRequest.getEmail());
             user.setLastLoggedInDateTime(LocalDateTime.now());
             return tokenService.generateToken(authentication);

@@ -69,8 +69,8 @@ public class UserController {
         return ResponseEntity.ok(updatedInfo);
     }
 
-    @PreAuthorize("#userId == authentication.principal.getId() || hasRole('ADMIN')")
-    @PostMapping(value = "/upload_profile_photo",
+    @PreAuthorize("#userId == authentication.principal.getId()")
+    @PostMapping(value = "/upload_profile_photo/{userId}",
             consumes = {"multipart/form-data"})
     public ResponseEntity uploadProfilePhoto(@PathVariable long userId,
                                              @RequestPart("file") @Valid @NotNull

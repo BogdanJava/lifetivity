@@ -11,8 +11,10 @@ import { User } from "../../../../model/user.model";
 export class UserCommonDetailsComponent implements OnInit {
   constructor(public sanitizer: DomSanitizer) {}
 
-  @Input() public user: User;
-  @Input() public pageData: PageData;
+  @Input()
+  public user: User;
+  @Input()
+  public pageData: PageData;
   public displayStatusEditor: boolean = false;
   public trustedSkypeUrl: SafeUrl;
 
@@ -34,6 +36,10 @@ export class UserCommonDetailsComponent implements OnInit {
   }
 
   public makeTrusted(str: string): SafeUrl {
-    return this.sanitizer.bypassSecurityTrustUrl(str);
+    if (str.startsWith("http")) {
+      return str;
+    } else {
+      return `https://${str}`;
+    }
   }
 }
