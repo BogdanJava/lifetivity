@@ -1,16 +1,36 @@
-version: '2'
+version: '3'
 services:
   mysql:
      container_name: lifetivity-mysql
      image: mysql:5.6
-     ports:
-     - "3306:3306"
      environment:
-     - MYSQL_ROOT_PASSWORD=root
-     - MYSQL_USER=mysql
-     - MYSQL_PASSWORD=mysql
+       MYSQL_ROOT_PASSWORD: root
+       MYSQL_USER: mysql
+       MYSQL_PASSWORD: mysql
+     volumes:
+       - mysql-data:/var/lib/mysql
   mongo:
      container_name: lifetivity-mongo
      image: mongo:3.4.6
-     ports:
-     - "27017:27017"
+     volumes:
+       - mongo-data:/data/db
+  server:
+    build: ./server
+    environment:
+      MONGO_HOST: mongo
+      MONGO_DB: lifetivity
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DB: lifetivity
+  client:
+    build: ./browser-client
+  proxy:
+    build: ./proxy
+    ports:
+      - 80:80
+      - 443:443
+
+volumes:
+  mysql-data:
+  mongo-data:

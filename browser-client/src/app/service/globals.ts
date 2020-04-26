@@ -1,4 +1,6 @@
-export const BASE_URL = "http://localhost:8080/api"
+import {environment} from "../../environments/environment";
+
+export const BASE_URL = `https://${environment.serverHost}`;
 
 export const monthNames = [
   { id: 1, name: 'January', short: 'Jan'},
