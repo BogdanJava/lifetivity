@@ -28,7 +28,7 @@ export class AuthenticationService {
   public isTokenValid(token: string): Observable<boolean> {
     return this.http.post<boolean>(`${this.infoUrl}/check_token_valid`, {
       token: token
-    });
+    })
   }
 
   public isEmailReserved(email: string): Observable<boolean> {

@@ -27,7 +27,7 @@ import javax.validation.constraints.NotNull;
 import java.nio.charset.StandardCharsets;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 

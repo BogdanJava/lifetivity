@@ -9,8 +9,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
-import lombok.var;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,8 +26,8 @@ import static com.google.common.collect.ImmutableMap.of;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/monthly")
-@Api(description = "Endpoints for working with user's monthly statistics")
+@RequestMapping("/monthly")
+@Api("Endpoints for working with user's monthly statistics")
 public class MonthlyStatisticsController {
 
     private final MonthlyModuleService statsService;
@@ -79,7 +77,7 @@ public class MonthlyStatisticsController {
     })
     @GetMapping("/by_user_id")
     public ResponseEntity getByUserId(@RequestParam long userId) {
-        val found = statsService.getAllMonthlyStatisticsByUserId(userId);
+        final var found = statsService.getAllMonthlyStatisticsByUserId(userId);
         return objectOrNotFoundWithMessage(found, "No entries with userId=" + userId + " found");
     }
 

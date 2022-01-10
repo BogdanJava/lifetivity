@@ -1,5 +1,4 @@
-FROM node:13-alpine AS build
-
+FROM node:14-alpine AS build
 WORKDIR /usr/src/app
 
 COPY . .
@@ -8,5 +7,12 @@ RUN npm install
 RUN npm install -g @angular/cli
 RUN ng build
 
-FROM nginx:1.17.1-alpine
-COPY --from=build /usr/src/app/dist/browser-client /usr/share/nginx/html
+FROM nginx:alpine
+WORKDIR /usr/share/nginx/html
+
+# Remove default nginx static assets
+RUN rm -rf ./*
+
+COPY --from=build /usr/src/app/dist/browser-client .
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

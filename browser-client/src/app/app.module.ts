@@ -1,7 +1,7 @@
 import { RoutingModule, components } from "./module/routing/routing.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule, ErrorHandler } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { FileSelectDirective } from "ng2-file-upload";
 import { ngfModule } from "angular-file";
@@ -20,6 +20,7 @@ import { RegisterContactComponent } from './component/register/register-contact/
 import { WorkflowCardComponent } from './component/workflow/workflow-main/workflow-card/workflow-card.component';
 import { YearPickerComponent } from './component/workflow/workflow-main/monthly-statistics/year-picker/year-picker.component'
 import { MonthCarouselComponent } from './component/workflow/workflow-main/monthly-statistics/month-carousel/month-carousel.component';
+import { SetHeadersHttpInterceptor } from "./interceptors/http/http-incerceptor";
 
 @NgModule({
   declarations: [
@@ -47,11 +48,9 @@ import { MonthCarouselComponent } from './component/workflow/workflow-main/month
     MyDatePickerModule,
   ],
   providers: [
-    {
-      provide: ErrorHandler,
-      useClass: GlobalErrorHandler
-    }
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: SetHeadersHttpInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

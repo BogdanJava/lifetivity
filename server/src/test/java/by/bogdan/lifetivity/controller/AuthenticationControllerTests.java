@@ -9,11 +9,10 @@ import by.bogdan.lifetivity.payload.LoginRequest;
 import by.bogdan.lifetivity.payload.SignupRequest;
 import by.bogdan.lifetivity.service.TokenService;
 import by.bogdan.lifetivity.service.UserService;
-import lombok.val;
 import org.assertj.core.internal.bytebuddy.utility.RandomString;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,19 +20,17 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AuthenticationControllerTests {
 
     private final String email = "lol123@gmail.com";
@@ -48,10 +45,10 @@ public class AuthenticationControllerTests {
     private String baseInfoUrl;
     private boolean userCreated = false;
 
-    @Before
+    @BeforeAll
     public void init() {
-        this.baseAuthUrl = "http://localhost:" + port + "/api/auth";
-        this.baseInfoUrl = "http://localhost:" + port + "/api/info";
+        this.baseAuthUrl = "http://localhost:" + port + "/auth";
+        this.baseInfoUrl = "http://localhost:" + port + "/info";
         if (!userCreated) {
             restTemplate.postForEntity(baseAuthUrl + "/signup",
                     new SignupRequest(mainUser, password), Map.class);
@@ -61,32 +58,32 @@ public class AuthenticationControllerTests {
 
     @Test
     public void registersUser_success() {
-        val email = "bogdanshishkin1998@gmail.com";
-        val password = "123456789";
-        val newUser = randomUser(email);
-        val response = restTemplate.postForEntity(baseAuthUrl + "/signup",
+        final var email = "bogdanshishkin1998@gmail.com";
+        final var password = "123456789";
+        final var newUser = randomUser(email);
+        final var response = restTemplate.postForEntity(baseAuthUrl + "/signup",
                 new SignupRequest(newUser, password), Map.class);
-        val responseBody = response.getBody();
-        val user = (Map) responseBody.get("user");
-        assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
+        final var responseBody = response.getBody();
+        final var user = (Map) responseBody.get("user");
+        assertEquals(response.getStatusCode(), HttpStatus.CREATED);
         assertNotNull(user);
-        assertThat(user.get("email"), is(email));
-        assertThat(user.get("accountActive"), is(true));
-        assertThat(Role.valueOf((String) user.get("role")), is(Role.USER));
+        assertEquals(user.get("email"), email);
+        assertTrue((boolean) user.get("accountActive"));
+        assertEquals(Role.valueOf((String) user.get("role")), Role.USER);
     }
 
     @Test
     public void registerUserThatAlreadyExists_fail() {
         final ResponseEntity<ErrorResponse> response = restTemplate.postForEntity(baseAuthUrl + "/signup",
                 new SignupRequest(mainUser, password), ErrorResponse.class);
-        assertThat(response.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
     @Test
     public void getAuthToken_success() {
         final ResponseEntity<AuthResponse> response = restTemplate.postForEntity(baseAuthUrl + "/login",
                 new LoginRequest(email, password), AuthResponse.class);
-        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
         final String token = response.getBody().getToken();
         assertNotNull(token);
         assertTrue(tokenService.validateToken(token));
@@ -96,7 +93,7 @@ public class AuthenticationControllerTests {
     public void getAuthTokenWithInvalidPassword_fail() {
         final ResponseEntity<ErrorResponse> response = restTemplate.postForEntity(baseAuthUrl + "/login",
                 new LoginRequest(email, "invalid_password"), ErrorResponse.class);
-        assertThat(response.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
         assertEquals(response.getBody().getMessage(), "Incorrect email or password");
     }
 
@@ -105,22 +102,22 @@ public class AuthenticationControllerTests {
     public void checkTokenValidity() {
         Map requestBody = new HashMap();
         requestBody.put("token", "invalid_token");
-        val responseFailed = restTemplate.postForEntity(baseInfoUrl + "/check_token_valid",
+        final var responseFailed = restTemplate.postForEntity(baseInfoUrl + "/check_token_valid",
                 requestBody, Object.class);
-        assertThat(responseFailed.getStatusCode(), is(HttpStatus.OK));
-        assertThat(responseFailed.getBody(), is(false));
+        assertEquals(responseFailed.getStatusCode(), HttpStatus.OK);
+        assertFalse((Boolean) responseFailed.getBody());
         requestBody.put("token", userService.loginUser(new LoginRequest(email, password)));
         final ResponseEntity<Boolean> responseSuccess = restTemplate.postForEntity(baseInfoUrl + "/check_token_valid",
                 requestBody, Boolean.class);
-        assertThat(responseSuccess.getStatusCode(), is(HttpStatus.OK));
-        assertThat(responseSuccess.getBody(), is(true));
+        assertEquals(responseSuccess.getStatusCode(), HttpStatus.OK);
+        assertTrue(responseSuccess.getBody());
     }
 
     private User randomUser(String email) {
-        val user = new User();
+        final var user = new User();
         user.setEmail(email);
         user.setAccountActive(true);
-        val contactInfo = new ContactInfo();
+        final var contactInfo = new ContactInfo();
         contactInfo.setCity(RandomString.make(5));
         contactInfo.setCountry(RandomString.make(5));
         user.setContactInfo(contactInfo);

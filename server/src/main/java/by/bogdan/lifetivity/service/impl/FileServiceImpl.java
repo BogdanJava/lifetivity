@@ -21,19 +21,35 @@ public class FileServiceImpl implements FileService {
     private final UserPageDataRepository dataRepository;
     private final Environment env;
 
+    private final String OS = System.getProperty("os.name");
+
+    private File createUserDir(long userId) {
+        var path = "";
+        if (OS.startsWith("Windows")) {
+            path = "D:\\uploads\\" + userId;
+        } else {
+            path = "/uploads/";
+        }
+        final var userDirectory = new File(path);
+        if (!userDirectory.exists()) {
+            var result = userDirectory.mkdirs();
+            if (!result) {
+                throw new RuntimeException("Can't create user dir");
+            }
+        }
+        return userDirectory;
+    }
+
     @Transactional
     @Override
     public UserPageData saveProfilePhoto(MultipartFile file, long userId) {
-        String baseUrl = "/uploads/";
-        String filePath = String.format("%s%d/%s", baseUrl,
-                userId, file.getOriginalFilename());
+        File userDirectory = createUserDir(userId);
+        String filePath = String.format("%s%c%s", userDirectory.getAbsolutePath(), File.separatorChar, file.getOriginalFilename());
         File fileToSave = changeFileName(new File(filePath));
         try {
             while (fileToSave.exists()) {
                 fileToSave = changeFileName(fileToSave);
             }
-            File userDirectory = new File(baseUrl + userId + "/");
-            if (!userDirectory.exists()) userDirectory.mkdir();
             fileToSave.createNewFile();
             file.transferTo(fileToSave);
             if (fileToSave.exists()) {
@@ -74,7 +90,7 @@ public class FileServiceImpl implements FileService {
     }
 
     private File changeFileName(File file) {
-        String absolutePath = file.getAbsolutePath();
+        String absolutePath = file.getAbsolutePath().replace("\\", "/");
         String directory = absolutePath.substring(0, absolutePath.lastIndexOf("/"));
         String oldFileName = absolutePath.substring(absolutePath.lastIndexOf("/") + 1);
         String nameWithoutType = "avatar";

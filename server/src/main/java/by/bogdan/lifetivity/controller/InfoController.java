@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@Api(description = "Consists of help methods(i.e. if token valid)")
+@Api("Consists of help methods(i.e. if token valid)")
 @RestController
-@RequestMapping("/api/info")
+@RequestMapping("/info")
 @RequiredArgsConstructor
 public class InfoController {
 

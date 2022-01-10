@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  serverHost: "api.lal.by"
+  serverHost: "localhost:8080",
+  scheme: "http"
 };
 
 /*

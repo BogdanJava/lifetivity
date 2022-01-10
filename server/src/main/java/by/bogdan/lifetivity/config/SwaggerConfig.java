@@ -23,7 +23,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(basePackage("by.bogdan.lifetivity.controller"))
-                .paths(regex("/api/.*"))
+                .paths(regex("/.*"))
                 .build()
                 .apiInfo(metaInfo());
     }

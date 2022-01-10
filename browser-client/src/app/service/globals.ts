@@ -1,6 +1,6 @@
 import {environment} from "../../environments/environment";
 
-export const BASE_URL = `https://${environment.serverHost}`;
+export const BASE_URL = `${environment.scheme}://${environment.serverHost}`;
 
 export const monthNames = [
   { id: 1, name: 'January', short: 'Jan'},
